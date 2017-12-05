@@ -1,9 +1,12 @@
 <?php
-$text = "Julian and Caleb Rule!!!";
+
 ?>
 <html>
 <head></head>
 <body>
-<p>Hello Poop! <?=$text?></p>
+<p>Hello Booger! <?=$text?></p>
+<?
+phpinfo();
+?>
 </body>
 </html>
