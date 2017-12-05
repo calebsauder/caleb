@@ -7,6 +7,7 @@ $text = "Julian and Caleb!";
 <?php
 echo "<p>HELLO TEST PHP ECHO!!!</p>";
 ?>
+<p><a href="?">REFRESH</a></p>
 <p>Hello <?=$text?></p>
 <?php
 phpinfo();
