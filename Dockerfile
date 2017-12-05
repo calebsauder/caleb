@@ -2,7 +2,7 @@ FROM csmjulian/resin-wpe:latest
 
 COPY udev-rules/ /etc/udev/rules.d/
 
-COPY httpd.conf /etc/apache2/httpd.conf
+#COPY httpd.conf /etc/apache2/httpd.conf
 
 COPY htdocs/ /usr/share/apache2/htdocs/
 
