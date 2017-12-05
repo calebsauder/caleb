@@ -4,6 +4,6 @@ $text = "Julian and Caleb Rule!!!";
 <html>
 <head></head>
 <body>
-<p>Hello World! <?=$text?></p>
+<p>Hello Poop! <?=$text?></p>
 </body>
 </html>
