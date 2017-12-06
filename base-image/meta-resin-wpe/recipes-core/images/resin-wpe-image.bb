@@ -11,6 +11,7 @@ IMAGE_INSTALL_append += " \
 	git \
 	php \
 	php-cli \
+	php-modphp \
 	tslib-calibrate \
 	tslib-tests \
 	ttf-bitstream-vera \
