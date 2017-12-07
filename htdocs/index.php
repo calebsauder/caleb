@@ -18,7 +18,8 @@ include("inc/head.inc.php");
 		</a>
 		<br>
 		<?php
-		echo "WHOAMI: [".shell_exec('whoami')."]";
+		echo "WHOAMI: [".shell_exec('whoami')."]<br>";
+		echo "WCLIST: [".shell_exec('sudo wclist scan | grep ESSID')."]<br>";
 		?>
 	</div>
 </section>
