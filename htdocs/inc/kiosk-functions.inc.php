@@ -54,7 +54,7 @@ function get_wifi_networks(){
 		$response['response'] = 'success';
 	}
 	else { // Pi
-		$cmd = "iwlist wlan0 scan | grep ESSID";
+		$cmd = "sudo iwlist wlan0 scan | grep ESSID";
 		$rsp = shell_exec($cmd);
 		$ESSIDs = explode("\n",trim($rsp));
 		$networks = array();
@@ -103,8 +103,8 @@ function set_wifi_network($network='',$pass=''){
 			// Failed to join network*
 			// expect silient attempt, takes too lon for ASYNC response
 		}
-		else {
-			/* Pi
+		else { // Pi
+			/*
 			sudo nano /etc/wpa_supplicant/wpa_supplicant.conf
 
 			Go to the bottom of the file and add the following:
@@ -113,7 +113,7 @@ function set_wifi_network($network='',$pass=''){
 				ssid="testing"
 				psk="testingPassword"
 			}
-			*/	
+			*/
 		}
 	}
 	if ($response['response'] == 'success') unset($response['error']);

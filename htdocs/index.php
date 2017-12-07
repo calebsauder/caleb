@@ -16,6 +16,10 @@ include("inc/head.inc.php");
 		<a href="player.php" id="welcome-screen-start-button" class="welcome-screen-button">
 			<span class="welcome-screen-button-icon">&#8227;</span>Start Kiosk
 		</a>
+		<br>
+		<?php
+		echo "WHOAMI: [".shell_exec('whoami')."]";
+		?>
 	</div>
 </section>
 <?php
