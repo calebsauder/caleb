@@ -4,6 +4,7 @@ IMAGE_FSTYPES = "tar.gz"
 
 IMAGE_INSTALL_append += " \
 	apache2 \
+	cronie \
 	curl \
 	fbcp \
 	fontconfig \
