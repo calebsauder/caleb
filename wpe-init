@@ -4,6 +4,7 @@ chmod 777 -R /usr/share/apache2/htdocs/videos
 chmod 777 /usr/share/apache2/htdocs/playlist.json
 
 /etc/init.d/apache2 start
+/etc/init.d/crond start
 
 udevd &
 udevadm trigger
