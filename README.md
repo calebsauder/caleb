@@ -138,4 +138,4 @@ webpage includes iframes.
 
 ## Known Issues
 
-* Sound is only output through HDMI
+* Sound is only output through HDMI - test
