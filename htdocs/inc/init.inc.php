@@ -26,7 +26,7 @@ $network_config_default = array(
 );
 
 // create video directory
-if (!file_exists($video_dir)) mkdir($video_dir, 0777);
+if (!file_exists($video_dir)) mkdir($video_dir,0777);
 
 if (!file_exists($network_file)) {
 	$fp = fopen($network_file,"w");
