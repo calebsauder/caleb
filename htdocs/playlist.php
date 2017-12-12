@@ -18,14 +18,14 @@ include("inc/head.inc.php");
 	<section id="main-video-wrapper">
 		<header id="video-wrapper-header">
 			<a href="index.php" id="video-wrapper-back-button" class="video-header-button">
-				<i class="fa fa-chevron-left" aria-hidden="true"></i> Back
+				<img class="icon pad-right" src="img/chevron-left.png">Back
 			</a>
 			<h1 id="video-wrapper-header-title"><img id="video-list-pp-logo" src="img/logo.png">Set-up</h1>
 			<a href="javascript:savePlaylist()" id="video-wrapper-save-button" class="video-header-button">
-				<i class="fa fa-floppy-o" aria-hidden="true"></i> Save Selection
+				<img class="icon pad-right" src="img/save.png">Save Selection
 			</a>
 			<a href="network.php" id="video-wrapper-network-button" class="video-header-button">
-				<i class="fa fa-wifi" aria-hidden="true"></i> Network
+				<img class="icon pad-right" src="img/wifi.png">Network
 			</a>
 			<div class="clear-float"></div>
 		</header>
@@ -40,7 +40,7 @@ include("inc/head.inc.php");
 </section>
 <div id="loading-modal-wrapper">
 	<div id="loading-modal-content-wrapper">
-		<h2 id="video-download-modal-title"><span class="download-icon">&#10226;</span>Downloading Videos...</h2>
+		<h2 id="video-download-modal-title"><div class="spinner"></div>Downloading Videos...</h2>
 		<div id="download-outer-loading-wrapper">
 			<div id="download-inner-loading-bar"></div>
 		</div>

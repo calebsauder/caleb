@@ -59,6 +59,8 @@ function init_network(){
 							$('#current_wifi_network').html('');
 						}
 						if (v == '') v = rsp.current_wifi_network;
+						
+						/*
 						var snap = JSON.stringify(rsp.networks);
 						if (snap != lastNetworkList) {
 							//console.log(lastNetworkList);
@@ -74,6 +76,39 @@ function init_network(){
 								s.html('<option value="">Looking for networks...</option>');
 							}
 						}
+						*/
+						
+						if (rsp.networks.length) {
+							$('li.looking').remove();
+							$('#looking-spinner').addClass('_hide');
+							var curNames = [];
+							$('#available-networks li').each(function(){
+								curNames.push($(this).html());
+							});
+							var newNames = [];
+							for (var i = 0; i < rsp.networks.length; i++) {
+								newNames.push(rsp.networks[i]);
+								if (curNames.indexOf(rsp.networks[i]) == -1) {
+									var li = $('<li>').html(rsp.networks[i]).click(function(){
+										var me = $(this);
+										$('#available-networks li._selected').each(function(){
+											$(this).removeClass('_selected');
+										});
+										me.addClass('_selected');
+									});
+									if (v == rsp.networks[i]) li.addClass('_selected');
+									$('#available-networks').append(li);
+								}
+							}
+							$('#available-networks li').each(function(){
+								if (newNames.indexOf($(this).html()) == -1) $(this).remove();
+							});
+						}
+						else {
+							$('#looking-spinner').removeClass('_hide');
+							$('#available-networks').html('<li class="looking">Looking for networks...</li>');
+						}
+						
 					}
 					else {
 						s.html('<option value="">Looking for networks...</option>');
@@ -93,9 +128,13 @@ function init_network(){
 
 var spinnerTimer = false;
 function connectToNetwork(){
+	var network = '';
+	$('#available-networks li._selected').each(function(){
+		if (network == '') network = $(this).html();
+	});
 	var params = {
 		action:'set-wifi-network',
-		network:$('#wifi-setup-select').val(),
+		network:network,
 		pass:$('#wifi-setup-input').val()
 	};
 	if (params.network == '') {

@@ -13,3 +13,19 @@ PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 # 30  7     * * *    root        cd / && run-parts /etc/cron.daily
 # 42  7     * * 7    root        cd / && run-parts /etc/cron.weekly
 # 55  7     1 * *    root        cd / && run-parts /etc/cron.monthly
+
+
+
+
+* * * * * root /usr/bin/php /usr/share/apache2/htdocs/cron.php >/dev/null
+* * * * * root SLEEP 5; /usr/bin/php  /usr/share/apache2/htdocs/cron.php >/dev/null
+* * * * * root SLEEP 10; /usr/bin/php /usr/share/apache2/htdocs/cron.php >/dev/null
+* * * * * root SLEEP 15; /usr/bin/php /usr/share/apache2/htdocs/cron.php >/dev/null
+* * * * * root SLEEP 20; /usr/bin/php /usr/share/apache2/htdocs/cron.php >/dev/null
+* * * * * root SLEEP 25; /usr/bin/php /usr/share/apache2/htdocs/cron.php >/dev/null
+* * * * * root SLEEP 30; /usr/bin/php /usr/share/apache2/htdocs/cron.php >/dev/null
+* * * * * root SLEEP 35; /usr/bin/php /usr/share/apache2/htdocs/cron.php >/dev/null
+* * * * * root SLEEP 40; /usr/bin/php /usr/share/apache2/htdocs/cron.php >/dev/null
+* * * * * root SLEEP 45; /usr/bin/php /usr/share/apache2/htdocs/cron.php >/dev/null
+* * * * * root SLEEP 50; /usr/bin/php /usr/share/apache2/htdocs/cron.php >/dev/null
+* * * * * root SLEEP 55; /usr/bin/php /usr/share/apache2/htdocs/cron.php >/dev/null

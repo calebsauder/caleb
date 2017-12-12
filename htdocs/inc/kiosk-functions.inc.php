@@ -8,7 +8,7 @@ function get_networkConfig(){
 	for ($n=0; $n<count($record); $n++) $data .= $record[$n];
 	$data = trim($data);
 	$network_config = @json_decode($data,true);
-	if (!is_array($network_config)) $network_config = $network_config_default;
+	if (!is_array($network_config)) $network_config = false;//$network_config_default;
 	return $network_config;
 }
 
@@ -25,14 +25,12 @@ function has_internet(){
 }
 
 function get_wifi_networks(){
-
 	$response = array(
 		'response'=>'error',
 		'error'=>'General catch',
 		'networks'=>array(),
 		'current_wifi_network'=>''
 	);
-
 	// Mac
 	if (file_exists('/Applications/MAMP/')) {
 	
@@ -97,7 +95,7 @@ function read_wifi_networks() {
 		array_push($networks,array(
 			'SSID'=>$ESSID
 		));
-	} 
+	}
 	$response['networks'] = $networks;
 	$response['current_wifi_network'] = $network_config['current_wifi_network'];
 	$response['response'] = 'success';
@@ -112,7 +110,7 @@ function set_wifi_network($network='',$pass=''){
 	);
 	
 	$network = trim($network);
-	$pass = trim($pass);
+	$pass    = trim($pass);
 	if ($network == '') {
 		$response['error'] = 'Missing required param: network';
 	}
@@ -128,25 +126,24 @@ function set_wifi_network($network='',$pass=''){
 			// sudo vi /etc/group
 			// add > admin:*:80:root,csm
 		
-			$cmd = trim("networksetup -setairportnetwork en0 '".$network."'".($pass ? " '".addslashes($pass)."'" : "")); // pass may not be required
+			$cmd = trim("/usr/sbin/networksetup -setairportnetwork en0 '".$network."'".($pass ? " '".addslashes($pass)."'" : "")); // pass may not be required
 			$response['cmd'] = $cmd;
 			$response['whoami'] = shell_exec('whoami');
 			shell_exec($cmd);
 			$response['response'] = 'success';
-			// Failed to join network*
-			// expect silient attempt, takes too lon for ASYNC response
+			// expect silient attempt, takes too long for ASYNC response
 		}
 		else { // Pi
-			/*
-			sudo nano /etc/wpa_supplicant/wpa_supplicant.conf
 
-			Go to the bottom of the file and add the following:
-
-			network={
-				ssid="testing"
-				psk="testingPassword"
-			}
-			*/
+			$data  = "network={\n";
+			$data .= "	ssid=\"".$network."\"\n";
+			$data .= "	psk=\"".$pass."\"\n";
+			$data .= "}\n";
+			$filename = "/etc/wpa_supplicant.conf";
+			$fp = fopen($filename,"w");
+			fwrite($fp,$data);
+			fclose($fp);
+			
 		}
 	}
 	if ($response['response'] == 'success') unset($response['error']);
@@ -186,12 +183,26 @@ function get_kioskRemoteSource($fetchurl='',$savepathfile=false){
 	}
 }
 
+function queue_set_wifi_network($network='',$pass='') {
+	global $connect_file, $tstamp;
+	$connect = array(
+		'network'=>$network,
+		'password'=>$pass
+	);
+	$fp = fopen($connect_file,"w");
+	fwrite($fp,json_encode($connect));
+	fclose($fp);
+	chmod($connect_file,0777);
+}
+
 function set_networkMonitor(){
 	global $network_file, $tstamp;
 	$network_config = get_networkConfig();
-	$network_config['monitoring'] = true;
-	$network_config['last_monitor'] = $tstamp;
-	$fp = fopen($network_file,"w");
-	fwrite($fp,json_encode($network_config));
-	fclose($fp);
+	if ($network_config) {
+		$network_config['monitoring'] = true;
+		$network_config['last_monitor'] = $tstamp;
+		$fp = fopen($network_file,"w");
+		fwrite($fp,json_encode($network_config));
+		fclose($fp);
+	}
 }

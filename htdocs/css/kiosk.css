@@ -393,11 +393,13 @@ body.fullscreen #setup-screen-wrapper{
     display: inline-block;
     font-size: 1.6em;
     text-align: center;
-    transform: rotate(90deg);
     width: 20%;
+    margin-top:5px;
 }
 .kiosk-roll-video-wrapper .functions-wrapper .hotkey-select{
     width: 60%;
+    position: relative;
+    top: -12px;
 }
 .kiosk-roll-video-wrapper .functions-wrapper .delete-button{
     background-color: transparent;
@@ -405,6 +407,9 @@ body.fullscreen #setup-screen-wrapper{
     cursor: pointer;
     font-size: 1.5em;
     width: 20%;
+    display: inline-block;
+    position: relative;
+    top: -4px;
 }
 .kiosk-roll-video-wrapper .downloaded{
     color: #00d000;
@@ -552,7 +557,8 @@ body.fullscreen #setup-screen-wrapper{
 }
 #looking-spinner {
 	position:absolute;
-	right:3px;
+    left: 3px;
+    top: 40px;
 }
 #looking-spinner._hide {
 	display:none;
@@ -575,4 +581,56 @@ body.fullscreen #setup-screen-wrapper{
 	right:10px;
 	font-size:32px;
 	color:#FFF;
+}
+
+.icon {
+	height:22px;
+	width:22px;
+	vertical-align:top;
+	display:inline-block;
+}
+.icon.pad-right {
+	margin-right:10px;
+}
+.welcome-screen-button-icon .icon {
+	width: 42px;
+	height: 42px;
+	margin-top: 10px;
+}
+.video-list .icon {
+    width: 52px;
+    height: 52px;
+    margin-top: 20px;
+}
+ul#available-networks {
+	margin:0;
+	padding:0;
+	list-style:none;
+	overflow:auto;
+	background-color:#FFF;
+	height:100px;
+}
+ul#available-networks li {
+	margin:0;
+	padding:5px 10px;
+	list-style:none;
+	background-color:#FFF;
+	border-bottom:1px solid #000;
+	color:#000;
+	font-size:13px;
+	cursor:pointer;
+}
+ul#available-networks li._selected,
+ul#available-networks li:hover {
+	background-color:#3875D7;
+	color:#FFF;
+}
+ul#available-networks li.looking,
+ul#available-networks li.looking:hover {
+	cursor:default;
+	background-color:#FFF;
+	color:#555;
+}
+ul#available-networks li:last-child {
+	border-bottom:none;
 }

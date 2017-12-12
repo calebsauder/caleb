@@ -11,10 +11,10 @@ include("inc/head.inc.php");
 	<img id="main-screens-pp-logo" src="img/logo.png">
 	<div id="welcome-screen-button-wrapper">
 		<a href="check-network.php" id="welcome-screen-setup-button" class="welcome-screen-button">
-			<span class="welcome-screen-button-icon">&#9881;</span>Set-up
+			<span class="welcome-screen-button-icon"><img class="icon pad-right" src="img/gear.png"></span>Set-up
 		</a>
 		<a href="player.php" id="welcome-screen-start-button" class="welcome-screen-button">
-			<span class="welcome-screen-button-icon">&#8227;</span>Start Kiosk
+			<span class="welcome-screen-button-icon"><img class="icon pad-right" src="img/play.png"></span>Start Kiosk
 		</a>
 	</div>
 </section>

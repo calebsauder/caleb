@@ -123,7 +123,7 @@ let Kiosk = (function(){
         for(let x in _jsonVideoList){
             _html += '<div class="kiosk-roll-video-wrapper" data-id="' +_jsonVideoList[x].id + '">';
                 _html += '<div class="functions-wrapper">'
-                    _html += '<div class="sort-handle">&#8633;</div>';
+                    _html += '<div class="sort-handle"><img class="icon" src="img/sort-black.png"></div>';
                     _html += '<select class="hotkey-select">';
                     	var hotkeys = [ // treat as strings!
                     		'',
@@ -142,9 +142,9 @@ let Kiosk = (function(){
                     		_html += '<option value="'+hotkeys[i]+'"'+((_jsonVideoList[x].hotkey == hotkeys[i]) ? ' selected="selected"' : '')+'>'+((hotkeys[i] != '') ? hotkeys[i] : '--')+'</option>';
 						}
                     _html += '</select>';
-                    _html += '<button class="delete-button">&#8855;</button>';
+                    _html += '<button class="delete-button"><img class="icon" src="img/delete-black.png"></button>';
                 _html += '</div>';
-                _html += '<div class="not-downloaded">&#9888;</div>';
+                _html += '<div class="not-downloaded"><img class="icon" src="img/warning.png"></div>';
                 //_html += '<video preload="metadata" class="kiosk-roll-video" type="video/mp4" src="' + _jsonVideoList[x].url + '"></video>'
                 _html += '<img class="kiosk-roll-video" src="' + _jsonVideoList[x].thumb + '">'
                 _html += '<h3 class="kiosk-roll-video-title">' + _jsonVideoList[x].title + '</h3>';
@@ -163,7 +163,7 @@ let Kiosk = (function(){
             _html += '<div class="video-list">';
             for(let y in _jsonVideoList[x].videos){
                 _html += '<div class="available-video-wrapper" data-selected="' + _jsonVideoList[x].videos[y].selected + '" data-id="' + _jsonVideoList[x].videos[y].id + '">';
-                    _html += '<div class="in-roll">&check;</div>';
+                    _html += '<div class="in-roll"><img class="icon" src="img/check-black.png"></div>';
                     //_html += '<video class="available-video" preload="metadata" type="video/mp4" src="' + _jsonVideoList[x].videos[y].url + '"></video>';
                     _html += '<img class="available-video" src="' + _jsonVideoList[x].videos[y].thumb + '">';
                     _html += '<h3 class="video-title">' + _jsonVideoList[x].videos[y].title + '</h3>'

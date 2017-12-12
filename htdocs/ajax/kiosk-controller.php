@@ -39,8 +39,8 @@ if ($action == 'get-networks') {
 }
 
 if ($action == 'set-wifi-network') {
-	$rsp = set_wifi_network($_POST['network'],$_POST['pass']);
-	$response = $rsp; // NOT ASYNC
+	queue_set_wifi_network($_POST['network'],$_POST['pass']);
+	$response['response'] = 'success'; // NOT ASYNC
 }
 
 if ($action == 'save-playlist') {
@@ -64,6 +64,8 @@ if ($action == 'save-playlist') {
 			'error'=>'General catch',
 			'video_id'=>$id,
 			'filename'=>$filename,
+			'orig_checksum'=>$checksum,
+			'this_checksum'=>md5($video_dir.$filename),
 			'checksum'=>$checksum
 		);
 		$download_file = true;
