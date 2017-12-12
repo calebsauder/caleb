@@ -10,7 +10,7 @@ $tstamp = mktime();
 
 $base = '/data/'; // location below root of data directory
 if (file_exists('/Applications/MAMP/')) $base = '/Applications/MAMP/htdocs/data/';
-
+ 
 $cron_marker = $base.'cron-running.json';
 $network_file = $base.'network.json';
 $playlist_file = $base.'playlist.json';

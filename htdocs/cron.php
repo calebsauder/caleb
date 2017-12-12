@@ -8,7 +8,7 @@ $lb = "\n";
 
 echo $lb.$lb;
 echo "Opening network config...".$lb;
-
+ 
 $network_config = get_networkConfig();
 
 if (file_exists($cron_marker)) {

@@ -1,7 +1,7 @@
 <?php
 
 require_once("../inc/init.inc.php");
-
+ 
 $action = $_POST['action'];
 
 $response = array(

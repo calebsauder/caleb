@@ -1,7 +1,7 @@
 function rn() {
 	return Math.floor(Math.random()*999999999);
 }
-
+ 
 function init_network(){
 	var checkInternetRunning = false;
 	var checkInternet = function(){

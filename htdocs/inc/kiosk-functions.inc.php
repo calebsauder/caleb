@@ -97,7 +97,7 @@ function read_wifi_networks() {
 		array_push($networks,array(
 			'SSID'=>$ESSID
 		));
-	}
+	} 
 	$response['networks'] = $networks;
 	$response['current_wifi_network'] = $network_config['current_wifi_network'];
 	$response['response'] = 'success';
