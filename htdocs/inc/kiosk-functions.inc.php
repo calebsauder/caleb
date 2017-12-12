@@ -1,5 +1,17 @@
 <?php
 
+function get_networkConfig(){
+	global $network_file, $network_config_default;
+	$fp = fopen($network_file,"r");
+	$record = file($network_file);
+	$data = '';
+	for ($n=0; $n<count($record); $n++) $data .= $record[$n];
+	$data = trim($data);
+	$network_config = @json_decode($data,true);
+	if (!is_array($network_config)) $network_config = $network_config_default;
+	return $network_config;
+}
+
 function has_internet(){
     $connected = @fsockopen("cloud.precisionplanting.com",443); 
     if ($connected){
@@ -22,7 +34,7 @@ function get_wifi_networks(){
 	);
 
 	// Mac
-	if (strstr($_SERVER['DOCUMENT_ROOT'],'MAMP')) {
+	if (file_exists('/Applications/MAMP/')) {
 	
 		$rsp = shell_exec("/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport -I | awk '/ SSID/ {print substr($0, index($0, $2))}'");
 		$response['current_wifi_network'] = trim($rsp);
@@ -72,6 +84,27 @@ function get_wifi_networks(){
 	return $response;
 }
 
+function read_wifi_networks() {
+	$response = array(
+		'response'=>'error',
+		'error'=>'General catch',
+		'networks'=>array(),
+		'current_wifi_network'=>''
+	);
+	$network_config = get_networkConfig();
+	$networks = array();
+	foreach ($network_config['networks'] as $ESSID) {
+		array_push($networks,array(
+			'SSID'=>$ESSID
+		));
+	}
+	$response['networks'] = $networks;
+	$response['current_wifi_network'] = $network_config['current_wifi_network'];
+	$response['response'] = 'success';
+	if ($response['response'] == 'success') unset($response['error']);
+	return $response;
+}
+
 function set_wifi_network($network='',$pass=''){
 	$response = array(
 		'response'=>'error',
@@ -89,7 +122,7 @@ function set_wifi_network($network='',$pass=''){
 	else {
 		// Mac
 		//	networksetup -setairportnetwork en0 @re:Invent17 @aws2017
-		if (strstr($_SERVER['DOCUMENT_ROOT'],'MAMP')) {
+		if (file_exists('/Applications/MAMP/')) {
 		
 			// for Mac:
 			// sudo vi /etc/group
@@ -121,9 +154,9 @@ function set_wifi_network($network='',$pass=''){
 }
 
 function get_playlist(){
-	global $data_file;
-	if (file_exists($data_file)) {
-		$data = shell_exec('cat "'.$data_file.'"');
+	global $playlist_file;
+	if (file_exists($playlist_file)) {
+		$data = shell_exec('cat "'.$playlist_file.'"');
 		$data = trim($data);
 		$data = @json_decode($data,true);
 		if (!is_array($data)) $data = array();
@@ -153,3 +186,12 @@ function get_kioskRemoteSource($fetchurl='',$savepathfile=false){
 	}
 }
 
+function set_networkMonitor(){
+	global $network_file, $tstamp;
+	$network_config = get_networkConfig();
+	$network_config['monitoring'] = true;
+	$network_config['last_monitor'] = $tstamp;
+	$fp = fopen($network_file,"w");
+	fwrite($fp,json_encode($network_config));
+	fclose($fp);
+}

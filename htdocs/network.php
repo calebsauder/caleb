@@ -7,6 +7,8 @@ require_once("inc/init.inc.php");
 $data_page = '';
 include("inc/head.inc.php");
 
+set_networkMonitor();
+
 ?>
 <header id="video-wrapper-header">
 	<a href="index.php" id="video-wrapper-back-button" class="video-header-button">

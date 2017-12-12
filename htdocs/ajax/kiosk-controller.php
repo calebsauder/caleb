@@ -10,6 +10,7 @@ $response = array(
 );
 
 if ($action == 'check-internet') {
+	set_networkMonitor();
 	$internet = has_internet();
 	if ($internet) {
 		$response['response'] = 'success';
@@ -20,7 +21,7 @@ if ($action == 'check-internet') {
 }
 
 if ($action == 'get-networks') {
-	$rsp = get_wifi_networks();
+	$rsp = read_wifi_networks();
 	if ($rsp['response'] == 'success') {
 		$response['response'] = 'success';
 		$names = array();
@@ -44,7 +45,7 @@ if ($action == 'set-wifi-network') {
 
 if ($action == 'save-playlist') {
 	$data = $_POST['data'];
-	$fp = fopen($data_file,"w");
+	$fp = fopen($playlist_file,"w");
 	fwrite($fp,$data);
 	fclose($fp);
 	
@@ -97,6 +98,11 @@ if ($action == 'save-playlist') {
 if ($action == 'get-playlist') {
 	$response['response'] = 'success';
 	$response['data'] = get_playlist();
+}
+
+if ($action == 'set-network-monitor') {
+	set_networkMonitor();
+	$response['response'] = 'success';
 }
 
 if ($response['response'] == 'success') unset($response['error']);
