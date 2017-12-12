@@ -1,12 +1,12 @@
 * * * * * /usr/bin/php /usr/share/apache2/htdocs/cron.php >/dev/null
-* * * * * SLEEP 5; /usr/bin/php  /usr/share/apache2/htdocs/cron.php >/dev/null
-* * * * * SLEEP 10; /usr/bin/php /usr/share/apache2/htdocs/cron.php >/dev/null
-* * * * * SLEEP 15; /usr/bin/php /usr/share/apache2/htdocs/cron.php >/dev/null
-* * * * * SLEEP 20; /usr/bin/php /usr/share/apache2/htdocs/cron.php >/dev/null
-* * * * * SLEEP 25; /usr/bin/php /usr/share/apache2/htdocs/cron.php >/dev/null
-* * * * * SLEEP 30; /usr/bin/php /usr/share/apache2/htdocs/cron.php >/dev/null
-* * * * * SLEEP 35; /usr/bin/php /usr/share/apache2/htdocs/cron.php >/dev/null
-* * * * * SLEEP 40; /usr/bin/php /usr/share/apache2/htdocs/cron.php >/dev/null
-* * * * * SLEEP 45; /usr/bin/php /usr/share/apache2/htdocs/cron.php >/dev/null
-* * * * * SLEEP 50; /usr/bin/php /usr/share/apache2/htdocs/cron.php >/dev/null
-* * * * * SLEEP 55; /usr/bin/php /usr/share/apache2/htdocs/cron.php >/dev/null
+* * * * * /bin/sleep 5; /usr/bin/php  /usr/share/apache2/htdocs/cron.php >/dev/null
+* * * * * /bin/sleep 10; /usr/bin/php /usr/share/apache2/htdocs/cron.php >/dev/null
+* * * * * /bin/sleep 15; /usr/bin/php /usr/share/apache2/htdocs/cron.php >/dev/null
+* * * * * /bin/sleep 20; /usr/bin/php /usr/share/apache2/htdocs/cron.php >/dev/null
+* * * * * /bin/sleep 25; /usr/bin/php /usr/share/apache2/htdocs/cron.php >/dev/null
+* * * * * /bin/sleep 30; /usr/bin/php /usr/share/apache2/htdocs/cron.php >/dev/null
+* * * * * /bin/sleep 35; /usr/bin/php /usr/share/apache2/htdocs/cron.php >/dev/null
+* * * * * /bin/sleep 40; /usr/bin/php /usr/share/apache2/htdocs/cron.php >/dev/null
+* * * * * /bin/sleep 45; /usr/bin/php /usr/share/apache2/htdocs/cron.php >/dev/null
+* * * * * /bin/sleep 50; /usr/bin/php /usr/share/apache2/htdocs/cron.php >/dev/null
+* * * * * /bin/sleep 55; /usr/bin/php /usr/share/apache2/htdocs/cron.php >/dev/null
