@@ -64,7 +64,7 @@ function get_wifi_networks(){
 		$response['response'] = 'success';
 	}
 	else { // Pi
-		$cmd = "sudo iwlist wlan0 scan | grep ESSID";
+		$cmd = "iwlist wlan0 scan | grep ESSID";
 		$rsp = shell_exec($cmd);
 		$ESSIDs = explode("\n",trim($rsp));
 		$networks = array();
