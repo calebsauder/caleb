@@ -136,9 +136,9 @@ function set_wifi_network($network='',$pass=''){
 		else { // Pi
 
 			$data = '';
-			$data .= "ctrl_interface=/usr/sbin/wpa_supplicant\n";
-			$data .= "ap_scan=0\n";
-			$data .= "fast_reauth=0\n";
+			//$data .= "ctrl_interface=/usr/sbin/wpa_supplicant\n";
+			//$data .= "ap_scan=0\n";
+			//$data .= "fast_reauth=0\n";
 			$data .= "network={\n";
 			$data .= "	ssid=\"".$network."\"\n";
 			if ($pass != '') {
