@@ -263,6 +263,7 @@ function savePlaylist(){
 			data:JSON.stringify(playlist)
 		},
 		success: function(rsp){
+			$('#save-rsp').val(JSON.stringify(rsp));
 			d.removeClass('_show');
 			swal("Sync Complete","Video resources successfully downloaded!","success");
 		}
