@@ -153,7 +153,8 @@ function set_wifi_network($network='',$pass=''){
 			fwrite($fp,$data);
 			fclose($fp);
 			
-			$cmd = "/usr/sbin/wpa_supplicant -Dnl80211 -iwlan0 -c/etc/wpa_supplicant.conf";
+			//$cmd = "/usr/sbin/wpa_supplicant -Dnl80211 -iwlan0 -c/etc/wpa_supplicant.conf";
+			$cmd = "/usr/sbin/wpa_supplicant -B -iwlan0 -c/etc/wpa_supplicant.conf -wext";
 			shell_exec($cmd);
 			
 		}
