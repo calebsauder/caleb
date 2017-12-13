@@ -135,14 +135,26 @@ function set_wifi_network($network='',$pass=''){
 		}
 		else { // Pi
 
-			$data  = "network={\n";
+			$data = '';
+			$data .= "ctrl_interface=/usr/sbin/wpa_supplicant\n";
+			$data .= "ap_scan=0\n";
+			$data .= "fast_reauth=0\n";
+			$data .= "network={\n";
 			$data .= "	ssid=\"".$network."\"\n";
-			$data .= "	psk=\"".$pass."\"\n";
+			if ($pass != '') {
+				$data .= "	psk=\"".$pass."\"\n";
+			}
+			else {
+				$data .= "  key_mgmt=NONE\n";
+			}
 			$data .= "}\n";
 			$filename = "/etc/wpa_supplicant.conf";
 			$fp = fopen($filename,"w");
 			fwrite($fp,$data);
 			fclose($fp);
+			
+			$cmd = "/usr/sbin/wpa_supplicant -Dnl80211 -iwlan0 -c/etc/wpa_supplicant.conf";
+			shell_exec($cmd);
 			
 		}
 	}
