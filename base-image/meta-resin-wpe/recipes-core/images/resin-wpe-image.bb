@@ -4,6 +4,7 @@ IMAGE_FSTYPES = "tar.gz"
 
 IMAGE_INSTALL_append += " \
 	apache2 \
+	connman \
 	cronie \
 	curl \
 	fbcp \
@@ -17,7 +18,6 @@ IMAGE_INSTALL_append += " \
 	tslib-tests \
 	ttf-bitstream-vera \
 	wireless-tools \
-	wpa-supplicant \
 	wpebackend \
 	wpebackend-rdk \
 	wpelauncher \
