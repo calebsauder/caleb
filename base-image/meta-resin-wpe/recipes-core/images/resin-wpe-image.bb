@@ -20,6 +20,7 @@ IMAGE_INSTALL_append += " \
 	tslib-tests \
 	ttf-bitstream-vera \
 	wireless-tools \
+	wpa-supplicant \
 	wpebackend \
 	wpebackend-rdk \
 	wpelauncher \
