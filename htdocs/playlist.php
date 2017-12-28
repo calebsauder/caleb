@@ -47,7 +47,7 @@ include("inc/head.inc.php");
 		<button id="cancel-download-button">Cancel</button>
 	</div>
 </div>
-<textarea id="save-rsp" style="width:100%; height:200px; font-size:12px; position:absolute; z-index:9999; bottom:0; left:0; right:0" placeholder="Save response..." autocomplete="off"></textarea>
+<textarea id="save-rsp" style="" placeholder="Save response..." autocomplete="off"></textarea>
 <?php
 
 $ondomready = ("

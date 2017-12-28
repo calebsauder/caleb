@@ -20,6 +20,10 @@ include("inc/head.inc.php");
 </section>
 <?php
 
+$ondomready .= ("
+	initAutoPlay();
+");
+
 include("inc/foot.inc.php");
 
 ?>

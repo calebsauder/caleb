@@ -1,7 +1,13 @@
 function rn() {
 	return Math.floor(Math.random()*999999999);
 }
- 
+
+function initAutoPlay(){
+	setTimeout(function(){
+		window.location = 'player.php';
+	},30000);
+}
+
 function init_network(){
 	var checkInternetRunning = false;
 	var checkInternet = function(){
@@ -159,6 +165,7 @@ function connectToNetwork(){
 	}
 }
 
+var titleFader = false;
 function init_player(){
 	var playlist = [];
 	$('#playlist li').each(function(){
@@ -186,8 +193,16 @@ function init_player(){
 		}
 		if (index > (playlist.length - 1)) index = 0;
 		var video = playlist[index];
-		$('#video-title').html(video.title);
+		if (titleFader) {
+			clearTimeout(titleFader);
+			titleFader = false;
+		}
+		$('#video-title').html(video.title).addClass('_show');
 		//player.html('<source src="'+video.video+'" type="video/mp4">Your browser does not support the video tag.');
+		titleFader = setTimeout(function(){
+			$('#video-title').removeClass('_show');
+			titleFader = false;
+		},3000);
 		player.prop('src', video.video);
 		player.data('index',index);
 		player[0].play();
