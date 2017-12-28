@@ -4,6 +4,9 @@ IMAGE_FSTYPES = "tar.gz"
 
 IMAGE_INSTALL_append += " \
 	apache2 \
+	connman \
+	connman-client \
+	connman-tools \
 	cronie \
 	curl \
 	fbcp \
