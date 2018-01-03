@@ -388,11 +388,13 @@ body.fullscreen #setup-screen-wrapper{
 }
 .kiosk-roll-video-wrapper .functions-wrapper{
     box-sizing: border-box;
-    display: none;
     padding: 0 5% 0 5%;
     position: absolute;
-    width: 100%;
     z-index: 15;
+    left: 13px;
+    background-color: rgba(255,255,255,0.3);
+    right: 13px;
+    height: 32px;
 }
 .kiosk-roll-video-wrapper .functions-wrapper .sort-handle{
     cursor: all-scroll;
@@ -408,14 +410,16 @@ body.fullscreen #setup-screen-wrapper{
     top: -12px;
 }
 .kiosk-roll-video-wrapper .functions-wrapper .delete-button{
-    background-color: transparent;
+	background-color: transparent;
     border: 0;
     cursor: pointer;
     font-size: 1.5em;
     width: 20%;
     display: inline-block;
     position: relative;
-    top: -4px;
+    top: 4px;
+    float: right;
+    left: 12px;
 }
 .kiosk-roll-video-wrapper .downloaded{
     color: #00d000;
@@ -663,4 +667,57 @@ ul#available-networks li:last-child {
 	bottom:0;
 	left:0;
 	right:0;
+}
+
+
+.hotKeySelect {
+    position: relative;
+    display: inline-block;
+    top: -12px;
+}
+.hotKeySelect ul {
+    position: absolute;
+    top: 20px;
+    left: 0;
+    list-style: none;
+    margin: 0;
+    padding: 5px 0 2px 5px;
+    width: 137px;
+    display: none;
+    z-index: 1;
+    border: 1px solid #CCC;
+    background-color: #FFF;
+}
+.hotKeySelect ul._show {
+	display:block;
+}
+.hotKeySelect li {
+	list-style:none;
+	margin:0 3px 3px 0;
+	padding:3px 5px;
+	border:1px solid #CCC;
+	color:#000;
+	text-align:center;
+	background-color:#EEE;
+	cursor:pointer;
+	float:left;
+	width:30px;
+	font:10px Arial;
+}
+.hotKeySelect li._selected,
+.hotKeySelect li:hover {
+	background-color:#3875D7;
+	color:#FFF;
+}
+.hotKeySelect button {
+	border:1px solid #555;
+	background-color:#FFF;
+	padding:3px 5px;
+	text-align:center;
+	margin:0;
+	width:80px;
+	font-size:10px Arial;
+}
+._clear {
+	clear:both;
 }
