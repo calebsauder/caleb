@@ -28,6 +28,13 @@ set_networkMonitor();
 		<p class="success-text"><img class="icon pad-right" src="img/check.png">This kiosk is connected to the internet. <span id="current_wifi_network"></span></p>
 	</div>
 	<div class="clear"></div>
+	
+	<select type="select">
+		<option value="1">1</option>
+		<option value="2">2</option>
+		<option value="3">3</option>
+	</select>
+	
 </section>
 
 <?php
