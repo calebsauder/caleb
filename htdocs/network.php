@@ -29,7 +29,7 @@ set_networkMonitor();
 	</div>
 	<div class="clear"></div>
 	
-	<select type="select">
+	<select type="select" name="selectTest" style="width:200px" onclick="alert('hi')">
 		<option value="1">1</option>
 		<option value="2">2</option>
 		<option value="3">3</option>
