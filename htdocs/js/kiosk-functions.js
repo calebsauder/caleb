@@ -162,7 +162,7 @@ let Kiosk = (function(){
             _html += '<h2 class="video-category-title">' + _jsonVideoList[x].category + '</h2>'
             _html += '<div class="video-list">';
             for(let y in _jsonVideoList[x].videos){
-                _html += '<div class="available-video-wrapper" data-selected="' + _jsonVideoList[x].videos[y].selected + '" data-id="' + _jsonVideoList[x].videos[y].id + '">';
+                _html += '<div class="available-video-wrapper" data-selected="' + _jsonVideoList[x].videos[y].selected + '" data-id="' + _jsonVideoList[x].videos[y].id + '" onclick="Kiosk.deleteFromPlaylist(\''+_jsonVideoList[x].videos[y].id+'\')">';
                     _html += '<div class="in-roll"><img class="icon" src="img/check-black.png"></div>';
                     //_html += '<video class="available-video" preload="metadata" type="video/mp4" src="' + _jsonVideoList[x].videos[y].url + '"></video>';
                     _html += '<img class="available-video" src="' + _jsonVideoList[x].videos[y].thumb + '">';
