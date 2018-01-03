@@ -13,6 +13,24 @@ let Kiosk = (function(){
     let availableVideos = [];
     
     let rollVideos = [];
+        
+	let deleteFromPlaylist = function(_rollVideoId) {
+		for(let x in Kiosk.rollVideos){
+			if(Kiosk.rollVideos[x].id == _rollVideoId){
+				Kiosk.rollVideos.splice(x, 1);
+			}
+		}
+		for(let x in Kiosk.availableVideos){
+			for(let y in Kiosk.availableVideos[x].videos){
+				if(Kiosk.availableVideos[x].videos[y].id == _rollVideoId){
+					Kiosk.availableVideos[x].videos[y].selected = false;
+				}
+			}
+		}
+		loadRollVideos(Kiosk.rollVideos);
+		loadVideoList(Kiosk.availableVideos);
+		_createEvents();
+	};
 
     let _createEvents = function(){
         $(".available-video-wrapper").click(function(){
@@ -22,7 +40,9 @@ let Kiosk = (function(){
                 $(".available-video-wrapper[data-id=" + _videoId + "]").attr("data-selected", true);
                 for(let x in Kiosk.availableVideos){
                     for(let y in Kiosk.availableVideos[x].videos){
-                        if(Kiosk.availableVideos[x].videos[y].id == $(this).attr("data-id")) Kiosk.availableVideos[x].videos[y].selected = true;
+                        if(Kiosk.availableVideos[x].videos[y].id == $(this).attr("data-id")) {
+                        	Kiosk.availableVideos[x].videos[y].selected = true;
+						}
                     }
                 }
                 Kiosk.rollVideos.prepend({
@@ -93,24 +113,6 @@ let Kiosk = (function(){
         }).mouseleave(function(){
             $(this).children(".functions-wrapper").fadeOut(300);
         });
-        
-        let deleteFromPlaylist = function(_rollVideoId) {
-            for(let x in Kiosk.rollVideos){
-                if(Kiosk.rollVideos[x].id == _rollVideoId){
-                    Kiosk.rollVideos.splice(x, 1);
-                }
-            }
-            for(let x in Kiosk.availableVideos){
-                for(let y in Kiosk.availableVideos[x].videos){
-                    if(Kiosk.availableVideos[x].videos[y].id == _rollVideoId){
-                        Kiosk.availableVideos[x].videos[y].selected = false;
-                    }
-                }
-            }
-            loadRollVideos(Kiosk.rollVideos);
-            loadVideoList(Kiosk.availableVideos);
-            _createEvents();
-        };
 
         $(".kiosk-roll-video-wrapper .delete-button").click(function(){
             _rollVideoId = $(this).parents(".kiosk-roll-video-wrapper").attr("data-id");
@@ -163,9 +165,9 @@ let Kiosk = (function(){
             _html += '<h2 class="video-category-title">' + _jsonVideoList[x].category + '</h2>'
             _html += '<div class="video-list">';
             for(let y in _jsonVideoList[x].videos){
-                _html += '<div class="available-video-wrapper" data-selected="' + _jsonVideoList[x].videos[y].selected + '" data-id="' + _jsonVideoList[x].videos[y].id + '" onclick="Kiosk.deleteFromPlaylist(\''+_jsonVideoList[x].videos[y].id+'\')">';
-                    _html += '<div class="in-roll"><img class="icon" src="img/check-black.png"></div>';
-                    //_html += '<video class="available-video" preload="metadata" type="video/mp4" src="' + _jsonVideoList[x].videos[y].url + '"></video>';
+                _html += '<div class="available-video-wrapper" data-selected="' + _jsonVideoList[x].videos[y].selected + '" data-id="' + _jsonVideoList[x].videos[y].id + '">';
+                _html += '<div class="in-roll" onclick="Kiosk.deleteFromPlaylist(\''+_jsonVideoList[x].videos[y].id+'\')"><img class="icon" src="img/check-black.png"></div>';
+            //_html += '<video class="available-video" preload="metadata" type="video/mp4" src="' + _jsonVideoList[x].videos[y].url + '"></video>';
                     _html += '<img class="available-video" src="' + _jsonVideoList[x].videos[y].thumb + '">';
                     _html += '<h3 class="video-title">' + _jsonVideoList[x].videos[y].title + '</h3>'
                _html += '</div>';
@@ -183,7 +185,8 @@ let Kiosk = (function(){
         availableVideos: availableVideos,
         loadRollVideos: loadRollVideos,
         loadVideoList: loadVideoList,
-        rollVideos: rollVideos
+        rollVideos: rollVideos,
+        deleteFromPlaylist:deleteFromPlaylist
     }
 
 })();

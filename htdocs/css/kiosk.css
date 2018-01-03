@@ -129,7 +129,7 @@ body.fullscreen #setup-screen-wrapper{
 }
 #setup-screen-success-wrapper .success-text,
 #setup-screen-error-wrapper .warning-text{
-    margin: 5px 0 12px 0;
+    margin: 12px 0;
 }
 #setup-connection-wrapper{
     border: 2px solid #717171;
