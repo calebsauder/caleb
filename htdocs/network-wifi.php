@@ -22,12 +22,32 @@ set_networkMonitor();
 </header>
 <section id="setup-screen-wrapper">
 	<div id="setup-screen-error-wrapper">
-		<p class="warning-text"><img class="icon pad-right" src="img/warning.png">This kiosk is not connected to the internet. Please plug it into your local network using the ethernet port on this Kiosk. You only need to do this to load your initial video playlist.</p>
+		<p class="warning-text"><img class="icon pad-right" src="img/warning.png">This kiosk is not connected to the internet. Please plug it into your local network or select a WiFi network.</p>
 	</div>
 	<div id="setup-screen-success-wrapper">
 		<p class="success-text"><img class="icon pad-right" src="img/check.png">This kiosk is connected to the internet. <span id="current_wifi_network"></span></p>
 	</div>
+	
 	<div class="clear"></div>
+	
+	<div id="setup-connection-wrapper">
+		<h2 id="setup-wifi-title">Available WiFi Networks</h2>
+		<form>
+			<label class="wifi-setup-label">
+				SSID <div id="looking-spinner" class="spinner"></div>
+				<ul id="available-networks"></ul>
+			</label>
+			<br>
+			<label class="wifi-setup-label">
+				Pass
+				<input id="wifi-setup-input" type="password" placeholder="Enter network password..." autocomplete="off" maxlength="150">
+			</label>
+		</form>
+		<div class="connect-btn">
+			<button id="wifi-connect-button" onclick="connectToNetwork()">Connect</button>
+			<div id="connect-spinner" class="spinner"></div>
+		</div>
+	</div>
 </section>
 
 <?php

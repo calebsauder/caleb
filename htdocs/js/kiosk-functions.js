@@ -39,7 +39,8 @@ let Kiosk = (function(){
             helper: "clone",
             revert: true,
             zIndex: 100,
-            connectToSortable: "#kiosk-roll-video-list"
+            connectToSortable: "#kiosk-roll-video-list",
+            handle:'.sort-handle'
         });
         $("#kiosk-roll-video-list").sortable({
             handle: ".sort-handle",

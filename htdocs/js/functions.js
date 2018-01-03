@@ -58,12 +58,12 @@ function init_network(){
 					var s = $('#wifi-setup-select');
 					var v = s.val();
 					if (rsp['response'] == 'success') {
-						if (rsp.current_wifi_network != '') {
-							$('#current_wifi_network').html('Current network: <strong>'+rsp.current_wifi_network+'</strong>');
-						}
-						else {
+						//if (rsp.current_wifi_network != '') {
+						//	$('#current_wifi_network').html('Current network: <strong>'+rsp.current_wifi_network+'</strong>');
+						//}
+						//else {
 							$('#current_wifi_network').html('');
-						}
+						//}
 						if (v == '') v = rsp.current_wifi_network;
 						
 						/*
@@ -128,8 +128,8 @@ function init_network(){
 			if (getNetworksRunning > 2) getNetworksRunning = false;
 		}
 	};
-	setInterval(getNetworks,5000);
-	getNetworks();
+	//setInterval(getNetworks,5000);
+	//getNetworks();
 }
 
 var spinnerTimer = false;

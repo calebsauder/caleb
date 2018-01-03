@@ -454,6 +454,12 @@ body.fullscreen #setup-screen-wrapper{
     display: block;
     margin: 0 auto;
     width: 90%;
+	user-drag: none; 
+	user-select: none; 
+	-moz-user-select: none; 
+	-webkit-user-drag: none; 
+	-webkit-user-select: none; 
+	-ms-user-select: none;
 }
 .kiosk-roll-video-title{
     color: #bbbbbb;
