@@ -15,6 +15,7 @@ $cron_marker = $base.'cron-running.json';
 $network_file = $base.'network.json';
 $playlist_file = $base.'playlist.json';
 $connect_file = $base.'connect.json';
+$sync_file = $base.'sync.txt';
 $video_dir = $base.'videos/';
 $video_url = 'video.php?v=';
 
@@ -40,5 +41,12 @@ if (!file_exists($playlist_file)) {
 	fwrite($fp,"[]");
 	fclose($fp);
 	chmod($playlist_file,0777);
+}
+
+if (!file_exists($sync_file)) {
+	$fp = fopen($sync_file,"w");
+	fwrite($fp,"");
+	fclose($fp);
+	chmod($sync_file,0777);
 }
 

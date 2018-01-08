@@ -90,72 +90,6 @@ let Kiosk = (function(){
                 loadRollVideos(Kiosk.rollVideos);
             }
         });
-        /*
-        $(".available-video-wrapper").draggable({
-            scroll: false,
-            helper: "clone",
-            revert: true,
-            zIndex: 100,
-            connectToSortable: "#kiosk-roll-video-list",
-            handle:'.sort-handle'
-        });
-        */
-        /*
-        $("#kiosk-roll-video-list").sortable({
-            handle: ".sort-handle",
-            axis: "y",
-            placeholder: "aplaceholder",
-            update: function (event, ui) {
-                if($(ui.item).hasClass("kiosk-roll-video-wrapper")){
-                    return;
-                }
-                let _droppedVideoId = ui.item[0].dataset.id;
-                let _allowedToDrop = true;
-
-                for(let x in Kiosk.availableVideos){
-                    for(let y in Kiosk.availableVideos[x].videos){
-                        if(_droppedVideoId == Kiosk.availableVideos[x].videos[y].id){
-                            if(Kiosk.availableVideos[x].videos[y].selected){
-                                _allowedToDrop = false;
-                            }
-                        }
-                    }
-                }
-                if(_allowedToDrop){
-                    for(let x in Kiosk.availableVideos){
-                        for(let y in Kiosk.availableVideos[x].videos){
-                            if(_droppedVideoId == Kiosk.availableVideos[x].videos[y].id){
-                                Kiosk.availableVideos[x].videos[y].selected = true;
-                            }
-                        }
-                    }
-                    $(".available-video-wrapper[data-id=" + _droppedVideoId + "]").attr("data-selected", true);
-                    rollVideos.splice(ui.item.index(), 0, {
-                        "thumb": $(ui.item).children("img").attr("src"),
-                        "title": $(ui.item).children("h3")[0].innerText,
-                        "id": $(ui.item).attr("data-id"),
-                    });
-                    $(ui.item).remove();
-                    loadRollVideos(rollVideos);
-                }
-                else{
-                    $(ui.item).remove();
-                }
-            },
-            stop: function(event, ui){
-                $(ui.item).removeAttr("style");
-            }
-        });
-        */
-
-		/*
-        $(".kiosk-roll-video-wrapper").mouseover(function(){
-            $(this).children(".functions-wrapper").fadeIn(300);
-        }).mouseleave(function(){
-            $(this).children(".functions-wrapper").fadeOut(300);
-        });
-        */
-
         $(".kiosk-roll-video-wrapper .delete-button").click(function(){
             _rollVideoId = $(this).parents(".kiosk-roll-video-wrapper").attr("data-id");
             deleteFromPlaylist(_rollVideoId);
@@ -163,20 +97,16 @@ let Kiosk = (function(){
     }
 
     let loadRollVideos = function(_jsonVideoList){
-    	//console.log(_jsonVideoList);
         let _html = "";
         for(let x in _jsonVideoList){
             _html += '<div class="kiosk-roll-video-wrapper" data-id="' +_jsonVideoList[x].id + '">';
                 _html += '<div class="functions-wrapper">'
-                    //_html += '<div class="sort-handle"><img class="icon" src="img/sort-black.png"></div>';
                     _html += '<div class="sort-handles"><img class="icon sort-up" src="img/sort-up.png"><img class="icon sort-down" src="img/sort-down.png"></div>';
                     
 					_html += '<div class="hotKeySelect">';
 					_html += '	<input type="hidden" class="hotKeyInput" value="'+((_jsonVideoList[x].hotkey !== '') ? _jsonVideoList[x].hotkey : '')+'" autocomplete="off">';
 					_html += '	<button type="button" onclick="openVideoHotKey(this)">Hot Key: <span class="videoHotKeyBtn">'+((_jsonVideoList[x].hotkey !== '') ? _jsonVideoList[x].hotkey : '--')+'</span></button>';
 					_html += '	<ul>';
-					_html += '		<li data-hotkey="" '+((_jsonVideoList[x].hotkey === '') ? ' class="_selected"' : '')+' onclick="selectVideoHotKey(this)">&nbsp;</li>';
-					_html += '		<li data-hotkey="0" '+((_jsonVideoList[x].hotkey === '0') ? ' class="_selected"' : '')+' onclick="selectVideoHotKey(this)">0</li>';
 					_html += '		<li data-hotkey="1" '+((_jsonVideoList[x].hotkey === '1') ? ' class="_selected"' : '')+' onclick="selectVideoHotKey(this)">1</li>';
 					_html += '		<li data-hotkey="2" '+((_jsonVideoList[x].hotkey === '2') ? ' class="_selected"' : '')+' onclick="selectVideoHotKey(this)">2</li>';
 					_html += '		<li data-hotkey="3" '+((_jsonVideoList[x].hotkey === '3') ? ' class="_selected"' : '')+' onclick="selectVideoHotKey(this)">3</li>';
@@ -186,7 +116,9 @@ let Kiosk = (function(){
 					_html += '		<li data-hotkey="7" '+((_jsonVideoList[x].hotkey === '7') ? ' class="_selected"' : '')+' onclick="selectVideoHotKey(this)">7</li>';
 					_html += '		<li data-hotkey="8" '+((_jsonVideoList[x].hotkey === '8') ? ' class="_selected"' : '')+' onclick="selectVideoHotKey(this)">8</li>';
 					_html += '		<li data-hotkey="9" '+((_jsonVideoList[x].hotkey === '9') ? ' class="_selected"' : '')+' onclick="selectVideoHotKey(this)">9</li>';
-					_html += '		<li data-hotkey="X" '+((_jsonVideoList[x].hotkey === '0') ? ' class="_selected"' : '')+' onclick="closeVideoHotKeySelect(this)">Close</li>';
+					_html += '		<li data-hotkey=""  '+((_jsonVideoList[x].hotkey === '' ) ? ' class="_selected"' : '')+' onclick="selectVideoHotKey(this)">&nbsp;</li>';
+					_html += '		<li data-hotkey="0" '+((_jsonVideoList[x].hotkey === '0') ? ' class="_selected"' : '')+' onclick="selectVideoHotKey(this)">0</li>';
+					_html += '		<li data-hotkey="X" onclick="closeVideoHotKeySelect(this)">Close</li>';
 					_html += '	</ul>';
 					_html += '	<div class="_clear"></div>';
 					_html += '</div>';
@@ -237,7 +169,26 @@ let Kiosk = (function(){
 
 })();
 
+var monitorStatus = false;
+
+function syncStatus(){
+	if (monitorStatus) {
+		$.ajax({
+			type: "POST",
+			url: 'ajax/kiosk-controller.php',
+			data: {
+				action:'sync-status'
+			},
+			success: function(rsp){
+				console.log(rsp);
+				if (rsp.response == 'success') $('#dimwin_txt').html(rsp.status);
+			}
+		});
+	}
+}
+
 function init_playlistConfig(){
+	setInterval(syncStatus,1000);
 	$.ajax({
 		type: "POST",
 		url: 'ajax/kiosk-controller.php',
@@ -304,8 +255,10 @@ function savePlaylist(){
 		};
 		playlist.push(video);
 	});
+	monitorStatus = true;
 	var d = $('#dimwin');
 		d.addClass('_show');
+		$('#dimwin_txt').html('Downloading video resources for your playlist...');
 	$.ajax({
 		type: "POST",
 		url: 'ajax/kiosk-controller.php',
@@ -317,6 +270,7 @@ function savePlaylist(){
 			$('#save-rsp').val(JSON.stringify(rsp));
 			d.removeClass('_show');
 			swal("Sync Complete","Video resources successfully downloaded!","success");
+			monitorStatus = false;
 		}
 	});
 }
@@ -360,6 +314,7 @@ function selectVideoHotKey(e){
 	closeVideoHotKeySelect(e);
 	
 }
+
 function openVideoHotKey(e){
 	$('.hotKeySelect ul._show').each(function(){
 		$(this).removeClass('_show');
@@ -369,8 +324,10 @@ function openVideoHotKey(e){
 	var ul = p.find('ul');
 	ul.addClass('_show');
 }
+
 function closeVideoHotKeySelect(e){
 	var e = $(e);
 	var ul = e.closest('ul');
 	ul.removeClass('_show');
 }
+

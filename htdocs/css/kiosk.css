@@ -18,6 +18,9 @@ body.fullscreen {
 body.player {
 	background-color:#000;
 }
+body.player * {
+	cursor: none;
+}
 /* Welcome Screen */
 #welcome-screen-wrapper{
     position: relative;

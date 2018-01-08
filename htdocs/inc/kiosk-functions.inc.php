@@ -177,6 +177,13 @@ function get_playlist(){
 	return $data;
 }
 
+function writeSync($p=''){
+	global $sync_file;
+	$fp = fopen($sync_file,"w");
+	fwrite($fp,$p);
+	fclose($fp);
+}
+
 function get_kioskRemoteSource($fetchurl='',$savepathfile=false){
 	$ch = curl_init();
 	curl_setopt($ch, CURLOPT_URL, $fetchurl);

@@ -3,7 +3,7 @@
 ?>
 <div id="dimwin">
 	<div class="spinner"></div>
-	<div id="dimwin_txt">Downloading video resources for your playlist...</div>
+	<div id="dimwin_txt"></div>
 </div>
 <script src="js/libs/jquery-3.2.1.min.js"></script>
 <script src="js/libs/jquery-ui-1.12.1/jquery-ui.min.js"></script>
