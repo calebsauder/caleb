@@ -67,7 +67,7 @@ if ($action == 'save-playlist') {
 	
 	$n = 1;
 	foreach ($jsdata as $video){
-		$t = 'Analyzing video '.$n.' of '.count($jsdata).'...';
+		$t = 'Syncing video '.$n.' of '.count($jsdata).'...';
 		writeSync($t);
 		$id = $video['id'];
 		$filename = $id.".mp4";
