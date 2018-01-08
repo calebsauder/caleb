@@ -1,10 +1,4 @@
-<a href="?">REFRESH</a><br>
-<img src="resin-logo.png">
-
 <?php
-
-phpinfo();
-exit;
 
 require_once("inc/init.inc.php");
 $body_cls = 'fullscreen';

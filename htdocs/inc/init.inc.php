@@ -4,6 +4,9 @@ error_reporting(E_ERROR | E_WARNING | E_PARSE);
 date_default_timezone_set('America/Chicago');
 ini_set('display_errors', 1); 
 
+// ROOT on pi:
+// /usr/share/apache2/htdocs/
+
 require_once('kiosk-functions.inc.php');
 
 $tstamp = mktime();
