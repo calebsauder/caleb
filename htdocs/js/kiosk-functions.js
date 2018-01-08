@@ -33,6 +33,42 @@ let Kiosk = (function(){
 	};
 
     let _createEvents = function(){
+    
+    	// Sort order
+    	$('.sort-handles .icon.sort-up').click(function(){
+    		const _rollVideoId = $(this).closest('.kiosk-roll-video-wrapper').data('id');
+    		var lastx = false;
+    		for (let x in Kiosk.rollVideos){
+				if (Kiosk.rollVideos[x].id == _rollVideoId){
+					var item = Kiosk.rollVideos[x];
+					Kiosk.rollVideos.splice(x,1);
+					Kiosk.rollVideos.splice(lastx,0,item);
+					break;
+				}
+				lastx = x;
+			}
+			loadRollVideos(Kiosk.rollVideos);
+    	});
+
+		$('.sort-handles .icon.sort-down').click(function(){
+    		const _rollVideoId = $(this).closest('.kiosk-roll-video-wrapper').data('id');
+    		var itemx = false;
+    		var item = false;
+    		for (let x in Kiosk.rollVideos){
+				if (item){
+					Kiosk.rollVideos.splice(itemx,1);
+					Kiosk.rollVideos.splice(x,0,item);
+					break;
+				}
+				if (Kiosk.rollVideos[x].id == _rollVideoId){
+					itemx = x;
+					item = Kiosk.rollVideos[x];
+				}
+				lastx = x;
+			}
+			loadRollVideos(Kiosk.rollVideos);
+    	});
+
         $(".available-video-wrapper").click(function(){
             let _videoId = $(this).attr("data-id");
             let _thisVideoIsSelected = $(this).attr("data-selected");
@@ -54,6 +90,7 @@ let Kiosk = (function(){
                 loadRollVideos(Kiosk.rollVideos);
             }
         });
+        /*
         $(".available-video-wrapper").draggable({
             scroll: false,
             helper: "clone",
@@ -62,6 +99,8 @@ let Kiosk = (function(){
             connectToSortable: "#kiosk-roll-video-list",
             handle:'.sort-handle'
         });
+        */
+        /*
         $("#kiosk-roll-video-list").sortable({
             handle: ".sort-handle",
             axis: "y",
@@ -107,6 +146,7 @@ let Kiosk = (function(){
                 $(ui.item).removeAttr("style");
             }
         });
+        */
 
 		/*
         $(".kiosk-roll-video-wrapper").mouseover(function(){
@@ -128,28 +168,8 @@ let Kiosk = (function(){
         for(let x in _jsonVideoList){
             _html += '<div class="kiosk-roll-video-wrapper" data-id="' +_jsonVideoList[x].id + '">';
                 _html += '<div class="functions-wrapper">'
-                    _html += '<div class="sort-handle"><img class="icon" src="img/sort-black.png"></div>';
-                    
-                    /*
-                    _html += '<select class="hotkey-select">';
-                    	var hotkeys = [ // treat as strings!
-                    		'',
-                    		'1',
-                    		'2',
-                    		'3',
-                    		'4',
-                    		'5',
-                    		'6',
-                    		'7',
-                    		'8',
-                    		'9',
-                    		'0',
-                    	];
-                    	for (var i = 0; i < hotkeys.length; i++) {
-                    		_html += '<option value="'+hotkeys[i]+'"'+((_jsonVideoList[x].hotkey == hotkeys[i]) ? ' selected="selected"' : '')+'>'+((hotkeys[i] != '') ? hotkeys[i] : '--')+'</option>';
-						}
-                    _html += '</select>';
-                    */
+                    //_html += '<div class="sort-handle"><img class="icon" src="img/sort-black.png"></div>';
+                    _html += '<div class="sort-handles"><img class="icon sort-up" src="img/sort-up.png"><img class="icon sort-down" src="img/sort-down.png"></div>';
                     
 					_html += '<div class="hotKeySelect">';
 					_html += '	<input type="hidden" class="hotKeyInput" value="'+((_jsonVideoList[x].hotkey !== '') ? _jsonVideoList[x].hotkey : '')+'" autocomplete="off">';
@@ -327,6 +347,18 @@ function selectVideoHotKey(e){
 			li.removeClass('_selected');
 		}
 	});
+	
+	// Save the hotkey to the Kiosk object
+	var videoID = p.closest('.kiosk-roll-video-wrapper').data('id');
+	$.each(Kiosk.rollVideos, function (i, video) {
+		if (video.id == videoID) {
+			video.hotkey = hotKey;
+			return false;
+		}
+	});
+	
+	closeVideoHotKeySelect(e);
+	
 }
 function openVideoHotKey(e){
 	$('.hotKeySelect ul._show').each(function(){
