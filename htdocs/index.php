@@ -1,3 +1,4 @@
+<a href="?">REFRESH</a><br>
 <img src="resin-logo.png">
 
 <?php
