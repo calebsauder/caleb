@@ -18,6 +18,7 @@ include("inc/head.inc.php");
 		</a>
 	</div>
 </section>
+<img src="resin-logo.png">
 <?php
 
 $ondomready .= ("
@@ -25,5 +26,7 @@ $ondomready .= ("
 ");
 
 include("inc/foot.inc.php");
+
+phpinfo();
 
 ?>
