@@ -177,7 +177,6 @@ function init_player(){
 			title:p.html()
 		});
 	});
-	console.log(playlist);
 	var player = $('#player');
 	var playVideo = function(index){
 		if (index == 'next') {
@@ -203,6 +202,8 @@ function init_player(){
 			$('#video-title').removeClass('_show');
 			titleFader = false;
 		},3000);
+		$('#playlist li._show').removeClass('_show');
+		$('#v'+video.id).addClass('_show');
 		player.prop('src', video.video);
 		player.data('index',index);
 		player[0].play();
@@ -222,6 +223,14 @@ function init_player(){
 		}
 		if (!gotit) console.log('Hot key ['+hotkey+'] unassigned');
 	};
+	$(window).on("keyup",function(event){
+		var keycode = event.which;
+		if (keycode == 32) { // space bar
+			$('#playlist').removeClass('_show');
+		}
+		event.preventDefault();
+		return false;
+	});
 	$(window).on("keydown",function(event){
 		var keycode = event.which;
 		if (keycode == 37) { // left arrow
@@ -231,7 +240,8 @@ function init_player(){
 			playVideo('next');
 		}
 		else if (keycode == 32) { // space bar
-			playVideo('next');
+			//playVideo('next');
+			$('#playlist').addClass('_show');
 		}
 		else if (keycode == 13) { // enter
 			playVideo('next');

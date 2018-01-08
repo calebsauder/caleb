@@ -15,7 +15,9 @@ $playlist = get_playlist();
 
 foreach ($playlist as $video){
 	if (file_exists($video_dir.$video['id'].'.mp4')) {
-		echo '<li data-id="'.$video['id'].'" data-hotkey="'.$video['hotkey'].'" data-video="'.$video_url.$video['id'].'.mp4">'.$video['title'].'</li>';
+		echo '<li id="v'.$video['id'].'" data-id="'.$video['id'].'" data-hotkey="'.$video['hotkey'].'" data-video="'.$video_url.$video['id'].'.mp4"><span><img src="img/chevron-right.png"></span>'.$video['title'];
+		if ($video['hotkey'] != '') echo '<div>Hot key: '.$video['hotkey'].'</div>';
+		echo '</li>';
 	}
 }
 
