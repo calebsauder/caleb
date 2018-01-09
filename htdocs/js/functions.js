@@ -233,6 +233,7 @@ function init_player(){
 	});
 	$(window).on("keydown",function(event){
 		var keycode = event.which;
+		console.log(keycode);
 		if (keycode == 37) { // left arrow
 			playVideo('previous');
 		}
@@ -244,6 +245,12 @@ function init_player(){
 			$('#playlist').addClass('_show');
 		}
 		else if (keycode == 13) { // enter
+			playVideo('next');
+		}
+		else if (keycode == 38) { // up
+			playVideo('previous');
+		}
+		else if (keycode == 40) { // down
 			playVideo('next');
 		}
 		else if (keycode == 27) { // esc

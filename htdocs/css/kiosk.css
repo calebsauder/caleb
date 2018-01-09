@@ -595,6 +595,7 @@ body.fullscreen #setup-screen-wrapper{
 	padding:0;
 	margin:20px 0;
 }
+.esc-tip,
 #playlist li div {
 	margin-left:30px;
 	font-size:13px;
