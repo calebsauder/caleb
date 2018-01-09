@@ -207,7 +207,7 @@ function init_player(){
 		player.prop('src', video.video);
 		player.data('index',index);
 		player[0].play();
-		console.log(video);
+		//console.log(video);
 	};
 	player[0].addEventListener('ended',function(){
 		console.log('ended');
