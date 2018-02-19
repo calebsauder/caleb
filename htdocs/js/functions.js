@@ -211,10 +211,11 @@ function init_player () {
 		player[0].play();
 		//console.log(video);
 	};
-	player[0].addEventListener('ended', function () {
+	/*player[0].addEventListener('ended', function () {
 		console.log('ended');
 		playVideo('next');
-	}, false);
+	}, false);*/
+	setInterval(playVideo, 10000);
 	var playHotKeyVideo = function (hotkey) {
 		var gotit = false;
 		for (var i = 0; i < playlist.length; i++) {
