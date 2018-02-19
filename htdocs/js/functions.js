@@ -1,23 +1,23 @@
-function rn() {
-	return Math.floor(Math.random()*999999999);
+function rn () {
+	return Math.floor(Math.random() * 999999999);
 }
 
-function initAutoPlay(){
-	setTimeout(function(){
+function initAutoPlay () {
+	setTimeout(function () {
 		window.location = 'player.php';
-	},30000);
+	}, 30000);
 }
 
-function init_network(){
+function init_network () {
 	var checkInternetRunning = false;
-	var checkInternet = function(){
+	var checkInternet = function () {
 		if (!checkInternetRunning) {
 			checkInternetRunning = 1;
 			$.ajax({
 				type: "POST",
-				url: 'ajax/kiosk-controller.php?rn='+rn(),
+				url: 'ajax/kiosk-controller.php?rn=' + rn(),
 				data: {
-					action:'check-internet'
+					action: 'check-internet'
 				},
 				success: function (rsp) {
 					checkInternetRunning = false;
@@ -39,19 +39,19 @@ function init_network(){
 			if (checkInternetRunning > 3) checkInternetRunning = false;
 		}
 	};
-	setInterval(checkInternet,2000);
+	setInterval(checkInternet, 2000);
 	checkInternet();
-	
+
 	var lastNetworkList = '';
 	var getNetworksRunning = false;
-	var getNetworks = function(){
+	var getNetworks = function () {
 		if (!getNetworksRunning) {
 			getNetworksRunning = 1;
 			$.ajax({
 				type: "POST",
-				url: 'ajax/kiosk-controller.php?rn='+rn(),
+				url: 'ajax/kiosk-controller.php?rn=' + rn(),
 				data: {
-					action:'get-networks'
+					action: 'get-networks'
 				},
 				success: function (rsp) {
 					getNetworksRunning = false;
@@ -62,10 +62,10 @@ function init_network(){
 						//	$('#current_wifi_network').html('Current network: <strong>'+rsp.current_wifi_network+'</strong>');
 						//}
 						//else {
-							$('#current_wifi_network').html('');
+						$('#current_wifi_network').html('');
 						//}
 						if (v == '') v = rsp.current_wifi_network;
-						
+
 						/*
 						var snap = JSON.stringify(rsp.networks);
 						if (snap != lastNetworkList) {
@@ -83,21 +83,21 @@ function init_network(){
 							}
 						}
 						*/
-						
+
 						if (rsp.networks.length) {
 							$('li.looking').remove();
 							$('#looking-spinner').addClass('_hide');
 							var curNames = [];
-							$('#available-networks li').each(function(){
+							$('#available-networks li').each(function () {
 								curNames.push($(this).html());
 							});
 							var newNames = [];
 							for (var i = 0; i < rsp.networks.length; i++) {
 								newNames.push(rsp.networks[i]);
 								if (curNames.indexOf(rsp.networks[i]) == -1) {
-									var li = $('<li>').html(rsp.networks[i]).click(function(){
+									var li = $('<li>').html(rsp.networks[i]).click(function () {
 										var me = $(this);
-										$('#available-networks li._selected').each(function(){
+										$('#available-networks li._selected').each(function () {
 											$(this).removeClass('_selected');
 										});
 										me.addClass('_selected');
@@ -106,7 +106,7 @@ function init_network(){
 									$('#available-networks').append(li);
 								}
 							}
-							$('#available-networks li').each(function(){
+							$('#available-networks li').each(function () {
 								if (newNames.indexOf($(this).html()) == -1) $(this).remove();
 							});
 						}
@@ -114,7 +114,7 @@ function init_network(){
 							$('#looking-spinner').removeClass('_hide');
 							$('#available-networks').html('<li class="looking">Looking for networks...</li>');
 						}
-						
+
 					}
 					else {
 						s.html('<option value="">Looking for networks...</option>');
@@ -133,30 +133,31 @@ function init_network(){
 }
 
 var spinnerTimer = false;
-function connectToNetwork(){
+
+function connectToNetwork () {
 	var network = '';
-	$('#available-networks li._selected').each(function(){
+	$('#available-networks li._selected').each(function () {
 		if (network == '') network = $(this).html();
 	});
 	var params = {
-		action:'set-wifi-network',
-		network:network,
-		pass:$('#wifi-setup-input').val()
+		action: 'set-wifi-network',
+		network: network,
+		pass: $('#wifi-setup-input').val()
 	};
 	if (params.network == '') {
-		swal('Oops!','Please select a WiFi network to connect to.','error');
+		swal('Oops!', 'Please select a WiFi network to connect to.', 'error');
 		return false;
 	}
 	else {
 		if (spinnerTimer) clearTimeout(spinnerTimer);
 		var spinner = $('#connect-spinner');
 		spinner.addClass('_show');
-		spinnerTimer = setTimeout(function(){
+		spinnerTimer = setTimeout(function () {
 			spinner.removeClass('_show');
-		},8000);
+		}, 8000);
 		$.ajax({
 			type: "POST",
-			url: 'ajax/kiosk-controller.php?rn='+rn(),
+			url: 'ajax/kiosk-controller.php?rn=' + rn(),
 			data: params,
 			success: function (rsp) {
 				//
@@ -166,19 +167,20 @@ function connectToNetwork(){
 }
 
 var titleFader = false;
-function init_player(){
+
+function init_player () {
 	var playlist = [];
-	$('#playlist li').each(function(){
+	$('#playlist li').each(function () {
 		var p = $(this);
 		playlist.push({
-			id:p.data('id'),
-			video:p.data('video'),
-			hotkey:p.data('hotkey'),
-			title:p.html()
+			id: p.data('id'),
+			video: p.data('video'),
+			hotkey: p.data('hotkey'),
+			title: p.html()
 		});
 	});
 	var player = $('#player');
-	var playVideo = function(index){
+	var playVideo = function (index) {
 		if (index == 'next') {
 			index = parseInt(player.data('index'));
 			if (isNaN(index)) index = 0;
@@ -198,32 +200,32 @@ function init_player(){
 		}
 		$('#video-title').html(video.title).addClass('_show');
 		//player.html('<source src="'+video.video+'" type="video/mp4">Your browser does not support the video tag.');
-		titleFader = setTimeout(function(){
+		titleFader = setTimeout(function () {
 			$('#video-title').removeClass('_show');
 			titleFader = false;
-		},3000);
+		}, 3000);
 		$('#playlist li._show').removeClass('_show');
-		$('#v'+video.id).addClass('_show');
+		$('#v' + video.id).addClass('_show');
 		player.prop('src', video.video);
-		player.data('index',index);
+		player.data('index', index);
 		player[0].play();
 		//console.log(video);
 	};
-	player[0].addEventListener('ended',function(){
+	player[0].addEventListener('ended', function () {
 		console.log('ended');
 		playVideo('next');
-	},false);
-	var playHotKeyVideo = function(hotkey){
+	}, false);
+	var playHotKeyVideo = function (hotkey) {
 		var gotit = false;
 		for (var i = 0; i < playlist.length; i++) {
-			if ((!gotit) && (playlist[i].hotkey == hotkey+'')) {
+			if ((!gotit) && (playlist[i].hotkey == hotkey + '')) {
 				gotit = true;
 				playVideo(i);
 			}
 		}
-		if (!gotit) console.log('Hot key ['+hotkey+'] unassigned');
+		if (!gotit) console.log('Hot key [' + hotkey + '] unassigned');
 	};
-	$(window).on("keyup",function(event){
+	$(window).on("keyup", function (event) {
 		var keycode = event.which;
 		if (keycode == 32) { // space bar
 			$('#playlist').removeClass('_show');
@@ -231,7 +233,7 @@ function init_player(){
 		event.preventDefault();
 		return false;
 	});
-	$(window).on("keydown",function(event){
+	$(window).on("keydown", function (event) {
 		var keycode = event.which;
 		console.log(keycode);
 		if (keycode == 37) { // left arrow
@@ -287,7 +289,7 @@ function init_player(){
 			playHotKeyVideo(9);
 		}
 		else {
-			
+
 		}
 		event.preventDefault();
 		return false;
@@ -300,3 +302,25 @@ function init_player(){
 		$('#require-setup').addClass('_show');
 	}
 }
+
+window.onerror = function () {
+
+	var errors = [];
+	var jsonErrors = localStorage.errors;
+	if (jsonErrors)
+		errors = JSON.parse(jsonErrors);
+
+	var stack = arguments[4].stack;
+	errors.push({
+		when: Date(),
+		arguments: arguments,
+		stack: stack
+	});
+
+	localStorage.errors = JSON.stringify(errors);
+
+	alert('An error occurred.\n\n' + stack);
+	location.reload();
+
+
+};

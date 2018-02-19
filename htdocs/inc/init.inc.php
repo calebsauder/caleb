@@ -2,17 +2,13 @@
 
 error_reporting(E_ERROR | E_WARNING | E_PARSE);
 date_default_timezone_set('America/Chicago');
-ini_set('display_errors', 1); 
+ini_set('display_errors', 1);
 
-// ROOT on pi:
-// /usr/share/apache2/htdocs/
+	require "config.inc.php";
 
 require_once('kiosk-functions.inc.php');
 
 $tstamp = mktime();
-
-$base = '/data/'; // location below root of data directory
-if (file_exists('/Applications/MAMP/')) $base = '/Applications/MAMP/htdocs/data/';
  
 $cron_marker = $base.'cron-running.json';
 $network_file = $base.'network.json';
