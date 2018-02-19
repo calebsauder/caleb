@@ -318,8 +318,7 @@ window.onerror = function () {
 	});
 
 	localStorage.errors = JSON.stringify(errors);
-
-	alert('An error occurred.\n\n' + stack);
+	
 	location.reload();
 
 

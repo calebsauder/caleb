@@ -10,10 +10,8 @@
 	});
 
 	$('#ls-clear').click(function () {
-		if (confirm('Are you sure you want to clear all LocalStorage?')) {
-			localStorage.clear();
-			printLocalStorage();
-		}
+		localStorage.clear();
+		printLocalStorage();
 	});
 
 	printLocalStorage();
