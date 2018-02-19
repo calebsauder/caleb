@@ -18,7 +18,7 @@ body.fullscreen {
 body.player {
 	background-color:#000;
 }
-body.player * {
+body.player.prod * {
 	cursor: none;
 }
 /* Welcome Screen */

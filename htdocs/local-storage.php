@@ -13,7 +13,7 @@
 		<a href='' style='color: inherit'>Refresh Page</a>
 		<a href='index.php' style='color: inherit'>Back to Home</a>
 	</p>
-	<div id='ls-json' style='font-family: monospace'></div>
+	<div id='ls-json'></div>
 </div>
 
 <?php

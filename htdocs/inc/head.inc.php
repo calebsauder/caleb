@@ -12,4 +12,4 @@
 <link rel="stylesheet" href="js/libs/sweetalert.1.1.3/sweetalert.min.css">
 <title>Precision Planting Showroom</title>
 </head>
-<body class="<?php echo $body_cls; ?>" data-page="<?php echo $data_page; ?>">
+<body class="<?="$body_cls " . (QA ? "qa" : "prod")?>" data-page="<?php echo $data_page; ?>">

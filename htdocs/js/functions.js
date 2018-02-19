@@ -302,33 +302,3 @@ function init_player () {
 		$('#require-setup').addClass('_show');
 	}
 }
-
-
-// Begin error logging code
-window.onerror = function () {
-
-	var errors = [];
-	var jsonErrors = localStorage.errors;
-	if (jsonErrors)
-		errors = JSON.parse(jsonErrors);
-
-	var stack = arguments[4].stack;
-	errors.push({
-		when: Date(),
-		arguments: arguments,
-		stack: stack
-	});
-
-	localStorage.errors = JSON.stringify(errors);
-
-	location.reload();
-
-
-};
-
-$(window).keydown(function (event) {
-
-	if (event.which == 69)
-		doesntExist();
-
-});

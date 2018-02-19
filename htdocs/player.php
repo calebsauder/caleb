@@ -36,6 +36,8 @@ $ondomready = ("
 	init_player();
 ");
 
+$add_to_foot .= "<script src='js/error-logging.js'></script>";
+
 include("inc/foot.inc.php");
 
 ?>
