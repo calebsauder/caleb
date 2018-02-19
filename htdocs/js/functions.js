@@ -215,7 +215,9 @@ function init_player () {
 		console.log('ended');
 		playVideo('next');
 	}, false);*/
-	setInterval(playVideo, 10000);
+	setInterval(function () {
+		playVideo('next');
+	}, 2000);
 	var playHotKeyVideo = function (hotkey) {
 		var gotit = false;
 		for (var i = 0; i < playlist.length; i++) {
