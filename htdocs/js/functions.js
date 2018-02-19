@@ -174,7 +174,7 @@ function init_player () {
 		var p = $(this);
 		playlist.push({
 			id: p.data('id'),
-			video: p.data('video'),
+			video: p.data('video').replace('video.php?v=', '../../data/videos/'),
 			hotkey: p.data('hotkey'),
 			title: p.html()
 		});
@@ -215,9 +215,12 @@ function init_player () {
 		console.log('ended');
 		playVideo('next');
 	}, false);*/
-	setInterval(function () {
-		playVideo('next');
-	}, 2000);
+	const fast = setInterval(function () {
+		if (player[0] == 3)
+			clearInterval(fast);
+		else
+			playVideo('next');
+	}, 10000);
 	var playHotKeyVideo = function (hotkey) {
 		var gotit = false;
 		for (var i = 0; i < playlist.length; i++) {
