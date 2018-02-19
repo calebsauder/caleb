@@ -225,7 +225,6 @@ function init_player () {
 				nativePlayer.readyState == MEDIA_EL_READY_STATE_HAVE_NOTHING
 				&& nativePlayer.currentTime == 0
 				&& nativePlayer.networkState == MEDIA_EL_NETWORK_STATE_NO_SOURCE
-				|| true
 			)
 				playVideo(index);
 		}, 5000);
