@@ -169,18 +169,28 @@ function connectToNetwork () {
 var titleFader = false;
 
 function init_player () {
+
+	const MEDIA_EL_READY_STATE_HAVE_NOTHING = 0;
+	const MEDIA_EL_NETWORK_STATE_NO_SOURCE = 3;
+
+	var checkIfPlayingTimeout;
 	var playlist = [];
 	$('#playlist li').each(function () {
 		var p = $(this);
 		playlist.push({
 			id: p.data('id'),
-			video: p.data('video').replace('video.php?v=', '../../data/videos/'),
+			video: p.data('video'),
 			hotkey: p.data('hotkey'),
 			title: p.html()
 		});
 	});
 	var player = $('#player');
 	var playVideo = function (index) {
+
+		clearTimeout(checkIfPlayingTimeout);
+
+		var nativePlayer = player[0];
+
 		if (index == 'next') {
 			index = parseInt(player.data('index'));
 			if (isNaN(index)) index = 0;
@@ -208,19 +218,24 @@ function init_player () {
 		$('#v' + video.id).addClass('_show');
 		player.prop('src', video.video);
 		player.data('index', index);
-		player[0].play();
+		nativePlayer.play();
+
+		checkIfPlayingTimeout = setTimeout(function () {
+			if (
+				nativePlayer.readyState == MEDIA_EL_READY_STATE_HAVE_NOTHING
+				&& nativePlayer.currentTime == 0
+				&& nativePlayer.networkState == MEDIA_EL_NETWORK_STATE_NO_SOURCE
+				|| true
+			)
+				playVideo(index);
+		}, 5000);
+
 		//console.log(video);
 	};
-	/*player[0].addEventListener('ended', function () {
+	player[0].addEventListener('ended', function () {
 		console.log('ended');
 		playVideo('next');
-	}, false);*/
-	const fast = setInterval(function () {
-		if (player[0] == 3)
-			clearInterval(fast);
-		else
-			playVideo('next');
-	}, 10000);
+	}, false);
 	var playHotKeyVideo = function (hotkey) {
 		var gotit = false;
 		for (var i = 0; i < playlist.length; i++) {
