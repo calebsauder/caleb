@@ -303,6 +303,8 @@ function init_player () {
 	}
 }
 
+
+// Begin error logging code
 window.onerror = function () {
 
 	var errors = [];
@@ -318,8 +320,15 @@ window.onerror = function () {
 	});
 
 	localStorage.errors = JSON.stringify(errors);
-	
+
 	location.reload();
 
 
 };
+
+$(window).keydown(function (event) {
+
+	if (event.which == 69)
+		doesntExist();
+
+});
