@@ -21,11 +21,14 @@ if ($action == 'sync-status') {
 if ($action == 'check-internet') {
 	set_networkMonitor();
 	$internet = has_internet();
-	if ($internet) {
+	if (!$internet) { // todo debug
 		$response['response'] = 'success';
 	}
 	else {
-		$response['error'] = "No intenet connection detected";
+		$response['error'] = "No internet connection detected";
+		shell_exec("wpa_cli scan");
+		$response['scan_output'] = shell_exec("wpa_cli scan_results");
+//		$response['scan_output'] = shell_exec("ls -l");
 	}
 }
 

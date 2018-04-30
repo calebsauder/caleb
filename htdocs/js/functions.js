@@ -30,6 +30,7 @@ function init_network () {
 						$('#setup-screen-error-wrapper').addClass('_show');
 						$('#setup-screen-success-wrapper').removeClass('_show');
 						$('#video-wrapper-save-button').hide();
+						$('#output').text(rsp['scan_output']);
 					}
 				}
 			});

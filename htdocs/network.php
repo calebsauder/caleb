@@ -22,6 +22,7 @@ set_networkMonitor();
 </header>
 <section id="setup-screen-wrapper" style="padding-top:12%">
 	<div id="setup-screen-error-wrapper">
+		<pre id='output'></pre>
 		<p class="warning-text"><img class="icon pad-right" src="img/warning.png">This kiosk is not connected to the internet. Please plug it into your local network using the ethernet port on this Kiosk. You only need to do this to load your initial video playlist.</p>
 	</div>
 	<div id="setup-screen-success-wrapper">
