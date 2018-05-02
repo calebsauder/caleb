@@ -24,8 +24,6 @@ COPY crontab /var/spool/cron/root
 ENV WPE_URL="http://localhost/index.php"
 COPY wpe-init /wpe-init
 
-RUN /wpe-init
-
-CMD ["bash", "start.sh"]
+CMD ["bash start.sh && /wpe-init"]
 
 
