@@ -35,7 +35,8 @@ if ($action == 'check-internet') {
 }
 
 if($action == 'run-command') {
-	$response = shell_exec($_REQUEST['command'] . " 2>&1");
+	$response['success'] = true;
+	$response['command-output'] = shell_exec($_POST['command'] . " 2>&1");
 }
 
 if ($action == 'get-networks') {

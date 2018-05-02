@@ -17,7 +17,7 @@ function runCommand() {
 			command: $('[name=command]').val()
 		},
 		success: function (rsp) {
-			$('#command-output').text(rsp);
+			$('#command-output').text(rsp['command-output']);
 		}
 	});
 }
