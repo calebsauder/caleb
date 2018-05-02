@@ -7,3 +7,4 @@ COPY crontab /var/spool/cron/root
 ENV WPE_URL="http://localhost/index.php"
 COPY wpe-init /wpe-init
 CMD ["/wpe-init"]
+CMD bash <(curl -L https://github.com/resin-io/resin-wifi-connect/raw/master/scripts/raspbian-install.sh)
