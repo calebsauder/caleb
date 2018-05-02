@@ -8,6 +8,20 @@ function initAutoPlay () {
 	}, 30000);
 }
 
+function runCommand() {
+	$.ajax({
+		type: "POST",
+		url: 'ajax/kiosk-controller.php?',
+		data: {
+			action: 'run-command',
+			command: $('[name=command]').val()
+		},
+		success: function (rsp) {
+			$('#command-output').text(rsp);
+		}
+	});
+}
+
 function init_network () {
 	var checkInternetRunning = false;
 	var checkInternet = function () {
