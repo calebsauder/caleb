@@ -21,10 +21,10 @@ set_networkMonitor();
 	<div class="clear-float"></div>
 </header>
 <section id="setup-screen-wrapper" style="padding-top:12%">
-	<div>
-		<input type='text' name='command'>
+	<form>
+		<input type='text' name='command' value='wpa_cli'>
 		<button type='button' onClick='runCommand()'>Run Command</button>
-	</div>
+	</form>
 	<pre id='command-output' style='background-color: white'></pre>
 	<div id="setup-screen-error-wrapper">
 		<pre id='output'></pre>
