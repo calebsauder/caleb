@@ -7,4 +7,22 @@ COPY crontab /var/spool/cron/root
 ENV WPE_URL="http://localhost/index.php"
 COPY wpe-init /wpe-init
 CMD ["/wpe-init"]
-CMD bash <(curl -L https://github.com/resin-io/resin-wifi-connect/raw/master/scripts/raspbian-install.sh)
+
+
+ENV INITSYSTEM on
+
+RUN apt-get update \
+    && apt-get install -y dnsmasq wireless-tools \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /usr/src/app
+
+RUN curl https://api.github.com/repos/resin-io/resin-wifi-connect/releases/latest -s \
+    | grep -hoP 'browser_download_url": "\K.*%%RESIN_ARCH%%\.tar\.gz' \
+    | xargs -n1 curl -Ls \
+    | tar -xvz -C /usr/src/app/
+
+COPY scripts/start.sh .
+
+CMD ["bash", "start.sh"]
