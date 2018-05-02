@@ -21,22 +21,12 @@ if ($action == 'sync-status') {
 if ($action == 'check-internet') {
 	set_networkMonitor();
 	$internet = has_internet();
-	if (!$internet) { // todo debug
+	if ($internet) {
 		$response['response'] = 'success';
 	}
 	else {
 		$response['error'] = "No internet connection detected";
-		$response['scan_output1'] = shell_exec("su -c 'wpa_cli scan' 2>&1");
-		$response['scan_output2'] = shell_exec("su -c 'wpa_cli scan_results' 2>&1");
-		$response['whoami'] = shell_exec("whoami");
-		$response['pwd'] = shell_exec("pwd");
-//		$response['scan_output'] = shell_exec("ls -l");
 	}
-}
-
-if($action == 'run-command') {
-	$response['success'] = true;
-	$response['command-output'] = shell_exec($_POST['command'] . " 2>&1");
 }
 
 if ($action == 'get-networks') {

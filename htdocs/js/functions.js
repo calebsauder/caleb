@@ -8,20 +8,6 @@ function initAutoPlay () {
 	}, 30000);
 }
 
-function runCommand() {
-	$.ajax({
-		type: "POST",
-		url: 'ajax/kiosk-controller.php?',
-		data: {
-			action: 'run-command',
-			command: $('[name=command]').val()
-		},
-		success: function (rsp) {
-			$('#command-output').text(rsp['command-output']);
-		}
-	});
-}
-
 function init_network () {
 	var checkInternetRunning = false;
 	var checkInternet = function () {
@@ -44,7 +30,6 @@ function init_network () {
 						$('#setup-screen-error-wrapper').addClass('_show');
 						$('#setup-screen-success-wrapper').removeClass('_show');
 						$('#video-wrapper-save-button').hide();
-						$('#output').html('scan output 1: ' + rsp['scan_output1'] + '<br/>scan output 2:' + rsp['scan_output2'] + '<br/>whomai: ' + rsp['whoami'] + '<br/>pwd' + rsp['pwd']);
 					}
 				}
 			});
