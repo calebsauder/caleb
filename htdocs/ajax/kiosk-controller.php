@@ -26,8 +26,8 @@ if ($action == 'check-internet') {
 	}
 	else {
 		$response['error'] = "No internet connection detected";
-		$response['scan_output1'] = shell_exec("sudo wpa_cli scan 2>&1");
-		$response['scan_output2'] = shell_exec("sudo wpa_cli scan_results 2>&1");
+		$response['scan_output1'] = shell_exec("su -c 'wpa_cli scan' 2>&1");
+		$response['scan_output2'] = shell_exec("su -c 'wpa_cli scan_results' 2>&1");
 		$response['whoami'] = shell_exec("whoami");
 		$response['pwd'] = shell_exec("pwd");
 //		$response['scan_output'] = shell_exec("ls -l");
