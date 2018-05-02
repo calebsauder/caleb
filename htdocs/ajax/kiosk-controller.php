@@ -25,7 +25,7 @@ if ($action == 'check-internet') {
 		$response['response'] = 'success';
 	}
 	else {
-		$response['error'] = "No intenet connection detected";
+		$response['error'] = "No internet connection detected";
 	}
 }
 
