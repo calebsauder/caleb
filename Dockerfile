@@ -11,10 +11,7 @@ CMD ["/wpe-init"]
 
 ENV INITSYSTEM on
 
-RUN apt-get update \
-    && apt-get install -y dnsmasq wireless-tools \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+
 
 WORKDIR /usr/src/app
 
@@ -23,6 +20,11 @@ RUN curl https://api.github.com/repos/resin-io/resin-wifi-connect/releases/lates
     | xargs -n1 curl -Ls \
     | tar -xvz -C /usr/src/app/
 
+RUN apt-get update \
+    && yum install -y dnsmasq wireless-tools \
+    && apt- clean \
+    && rm -rf /var/lib/apt/lists/*
+    
 COPY scripts/start.sh .
 
 CMD ["bash", "start.sh"]
