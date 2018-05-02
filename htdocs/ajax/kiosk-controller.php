@@ -28,6 +28,8 @@ if ($action == 'check-internet') {
 		$response['error'] = "No internet connection detected";
 		$response['scan_output1'] = shell_exec("wpa_cli scan 2>&1");
 		$response['scan_output2'] = shell_exec("wpa_cli scan_results 2>&1");
+		$response['whoami'] = shell_exec("whoami");
+		$response['pwd'] = shell_exec("pwd");
 //		$response['scan_output'] = shell_exec("ls -l");
 	}
 }

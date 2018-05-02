@@ -30,7 +30,7 @@ function init_network () {
 						$('#setup-screen-error-wrapper').addClass('_show');
 						$('#setup-screen-success-wrapper').removeClass('_show');
 						$('#video-wrapper-save-button').hide();
-						$('#output').text('scan output 1: ' + rsp['scan_output1'] + '<br/>scan output 2:' + rsp['scan_output2']);
+						$('#output').html('scan output 1: ' + rsp['scan_output1'] + '<br/>scan output 2:' + rsp['scan_output2'] + '<br/>whomai: ' + rsp['whoami'] + '<br/>pwd' + rsp['pwd']);
 					}
 				}
 			});
