@@ -2,7 +2,11 @@ version: '2'
 services:
   resin-wifi-connect:
     build: ./resin-wifi-connect
+    privileged: true
+    network_mode: host
   web:
     build: ./web
     depends_on:
       - resin-wifi-connect
+    restart: always
+    network_mode: host
