@@ -1,0 +1,8 @@
+version: '2'
+services:
+  resin-wifi-connect:
+    build: ./resin-wifi-connect
+  web:
+    build: ./web
+    depends_on:
+      - resin-wifi-connect
