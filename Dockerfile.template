@@ -16,7 +16,7 @@ RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o web .
 
 FROM resin/%%RESIN_MACHINE_NAME%%-debian
 
-COPY --from=0 /usr/src/web
+COPY --from=0 /usr/src/web .
 
 ENV INITSYSTEM on
 
