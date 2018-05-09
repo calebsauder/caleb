@@ -27,4 +27,4 @@ COPY wpe-init /wpe-init
 
 #CMD ["bash", "start.sh"]
 
-CMD ["/wpe-init; bash start.sh"]
+CMD ["bash", "start.sh ; /wpe-init"]
