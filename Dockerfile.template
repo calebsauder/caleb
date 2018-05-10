@@ -15,7 +15,6 @@ RUN curl https://api.github.com/repos/resin-io/resin-wifi-connect/releases/lates
     | tar -xvz -C /usr/src/app/
 
 COPY scripts/start.sh .
-RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o app 
 
 FROM csmjulian/resin-wpe:eighth
 
