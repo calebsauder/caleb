@@ -20,10 +20,10 @@ FROM csmjulian/resin-wpe:eighth
 
 ENV INITSYSTEM on
 
-#RUN apk update \ ## doesn't work b/c this image doesn't have apt-get installed
+# RUN apk update \ ## doesn't work b/c this image doesn't have apt-get installed
 #	&& apk add dnsmasq wireless-tools
 
-COPY --from=0 /usr/src/app .	# copies the wifi-connect application downloaded from the previous stage to this one
+COPY --from=0 /usr/src/app .
 
 ## copying over dnsmasq ###
 COPY --from=0 /etc/ /etc/
