@@ -37,7 +37,7 @@ RUN apt-get update && apt-get install -y apache2
 
 RUN apt-get clean
 
-RUN rm-rf /var/lib/apt/lists/*
+RUN rm -rf /var/lib/apt/lists/*
 
 
 WORKDIR /usr/src/app
