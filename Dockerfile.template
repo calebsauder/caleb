@@ -31,4 +31,4 @@ ENV WPE_URL="http://localhost/index.php"
 
 COPY wpe-init /wpe-init
 
-CMD ["sh", "-c", "bash start.sh ; /wpe-init"]
+CMD ["sh", "-c", "bash start.sh"]
