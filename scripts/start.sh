@@ -24,4 +24,4 @@ else
 fi
 
 # Start your application here.
-/wpe-init
+./wpe-init

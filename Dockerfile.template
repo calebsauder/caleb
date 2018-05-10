@@ -12,7 +12,7 @@ COPY wpe-init /wpe-init
 
 FROM resin/%%RESIN_MACHINE_NAME%%-debian
 
-#COPY --from=0 / .
+COPY --from=0 /wpe-init .
 
 ENV INITSYSTEM on
 
