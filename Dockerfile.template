@@ -1,23 +1,4 @@
-FROM csmjulian/resin-wpe:eighth
-
-#WORKDIR /usr/src/web
-
-COPY splash-black.png /resin-boot/splash/resin-logo.png
-COPY udev-rules/ /etc/udev/rules.d/
-COPY php.ini /etc/php/apache2-php7/php.ini
-COPY htdocs/ /usr/share/apache2/htdocs/
-COPY crontab /var/spool/cron/root
-ENV WPE_URL="http://localhost/index.php"
-COPY wpe-init /wpe-init
-
 FROM resin/%%RESIN_MACHINE_NAME%%-debian
-
-COPY --from=0 /wpe-init .
-COPY --from=0 /resin-boot/splash/resin-logo.png /resin-boot/splash/resin-logo.png
-COPY --from=0 /etc/udev/rules.d/ /etc/udev/rules.d/
-COPY --from=0 /etc/php/apache2-php7/php.ini /etc/php/apache2-php7/php.ini
-COPY --from=0 /usr/share/apache2/htdocs/ /usr/share/apache2/htdocs/
-COPY --from=0 /var/spool/cron/root /var/spool/cron/root
 
 ENV INITSYSTEM on
 
@@ -26,19 +7,6 @@ RUN apt-get update \
 
     #&& apt-get clean \		commented out
     #&& rm -rf /var/lib/apt/lists/*
-
-RUN apt-get update && apt-get install -y apache2
-
-RUN apt-get install -y cron
-
-#RUN apt-get install -y WPELauncher
-
-#RUN apt-get install -y fbcp
-
-RUN apt-get clean
-
-RUN rm -rf /var/lib/apt/lists/*
-
 
 WORKDIR /usr/src/app
 
@@ -49,4 +17,21 @@ RUN curl https://api.github.com/repos/resin-io/resin-wifi-connect/releases/lates
 
 COPY scripts/start.sh .
 
-CMD ["sh", "-c", "bash start.sh"]
+FROM csmjulian/resin-wpe:eighth
+
+ENV INITSYSTEM on
+
+#WORKDIR /usr/src/web
+
+COPY --from=0 start.sh /
+
+COPY splash-black.png /resin-boot/splash/resin-logo.png
+COPY udev-rules/ /etc/udev/rules.d/
+COPY php.ini /etc/php/apache2-php7/php.ini
+COPY htdocs/ /usr/share/apache2/htdocs/
+COPY crontab /var/spool/cron/root
+ENV WPE_URL="http://localhost/index.php"
+
+COPY wpe-init /wpe-init
+
+CMD ["sh", "-c", "bash start.sh ; /wpe-init"]
