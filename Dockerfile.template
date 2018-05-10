@@ -22,9 +22,14 @@ COPY --from=0 /var/spool/cron/root /var/spool/cron/root
 ENV INITSYSTEM on
 
 RUN apt-get update \
+	&& apt-get install -y apache2
+	&& apt-get install -y crond
+	&& apt-get install -y WPELauncher
+	&& apt-get install -y fbcp
     && apt-get install -y dnsmasq wireless-tools \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
+
 
 WORKDIR /usr/src/app
 
