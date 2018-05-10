@@ -32,8 +32,8 @@ RUN apt-get update \
 RUN apt-get install -y crond
 RUN apt-get install -y WPELauncher
 RUN apt-get install -y fbcp
-	&& apt-get clean \
-	&& rm-rf /var/lib/apt/lists/*
+RUN apt-get clean \
+RUN rm-rf /var/lib/apt/lists/*
 
 
 WORKDIR /usr/src/app
