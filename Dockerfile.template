@@ -13,6 +13,11 @@ COPY wpe-init /wpe-init
 FROM resin/%%RESIN_MACHINE_NAME%%-debian
 
 COPY --from=0 /wpe-init .
+COPY --from=0 /resin-boot/splash/resin-logo.png /resin-boot/splash/resin-logo.png
+COPY --from=0 /etc/udev/rules.d/ /etc/udev/rules.d/
+COPY --from=0 /etc/php/apache2-php7/php.ini /etc/php/apache2-php7/php.ini
+COPY --from=0 /usr/share/apache2/htdocs/ /usr/share/apache2/htdocs/
+COPY --from=0 /var/spool/cron/root /var/spool/cron/root
 
 ENV INITSYSTEM on
 
