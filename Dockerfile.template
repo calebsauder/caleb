@@ -16,5 +16,27 @@ RUN curl https://api.github.com/repos/resin-io/resin-wifi-connect/releases/lates
 
 COPY scripts/start.sh .
 
+FROM csmjulian/resin-wpe:eighth
+
+ENV INITSYSTEM on
+
+# RUN apk update \ ## doesn't work b/c this image doesn't have apt-get installed
+#	&& apk add dnsmasq wireless-tools
+
+COPY --from=0 /usr/src/app .
+
+## copying over dnsmasq ###
+COPY --from=0 /usr/sbin/dnsmasq /usr/sbin/dnsmasq
+COPY --from=0 /etc/dnsmasq.d /etc/dnsmasq.d
+COPY --from=0 /etc/dnsmasq.conf /etc/dnsmasq.conf
+
+COPY splash-black.png /resin-boot/splash/resin-logo.png
+COPY udev-rules/ /etc/udev/rules.d/
+COPY php.ini /etc/php/apache2-php7/php.ini
+COPY htdocs/ /usr/share/apache2/htdocs/
+COPY crontab /var/spool/cron/root
+ENV WPE_URL="http://localhost/index.php"
+
+COPY wpe-init /wpe-init
 
 CMD ["sh", "-c", "bash start.sh"]
