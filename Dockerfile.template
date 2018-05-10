@@ -20,9 +20,7 @@ FROM csmjulian/resin-wpe:eighth
 
 ENV INITSYSTEM on
 
-#WORKDIR /usr/src/web
-
-COPY --from=0 start.sh /
+COPY --from=0 /usr/src/app .
 
 COPY splash-black.png /resin-boot/splash/resin-logo.png
 COPY udev-rules/ /etc/udev/rules.d/
