@@ -25,10 +25,7 @@ ENV INITSYSTEM on
 
 COPY --from=0 /usr/src/app .
 
-## copying over dnsmasq ###
-COPY --from=0 /usr/sbin/dnsmasq /usr/sbin/dnsmasq
-COPY --from=0 /etc/dnsmasq.d /etc/dnsmasq.d
-COPY --from=0 /etc/dnsmasq.conf /etc/dnsmasq.conf
+RUN yum -v
 
 COPY splash-black.png /resin-boot/splash/resin-logo.png
 COPY udev-rules/ /etc/udev/rules.d/
