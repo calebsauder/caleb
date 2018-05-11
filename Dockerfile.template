@@ -1,12 +1,16 @@
+## initial stage where wifi-connect is setup
 FROM resin/%%RESIN_MACHINE_NAME%%-debian
 
 ENV INITSYSTEM on
 
+## wifi-connect dependency
+## technically, this is useless because the final stage (ours) doesn't have it installed.
 RUN apt-get update \
     && apt-get install -y dnsmasq wireless-tools \
     && apt-get clean \		
     && rm -rf /var/lib/apt/lists/*
 
+## downloads and extracts the wifi-connect app
 WORKDIR /usr/src/app
 
 RUN curl https://api.github.com/repos/resin-io/resin-wifi-connect/releases/latest -s \
@@ -16,17 +20,23 @@ RUN curl https://api.github.com/repos/resin-io/resin-wifi-connect/releases/lates
 
 COPY scripts/start.sh .
 
+
+## our stage
 FROM csmjulian/resin-wpe:eighth
 
 ENV INITSYSTEM on
 
-# RUN apk update \ ## doesn't work b/c this image doesn't have apt-get installed
-#	&& apk add dnsmasq wireless-tools
+# RUN apt-get update \		## Doesn't work because this stage doesn't have apt-get in the image
+#     && apt-get install -y dnsmasq wireless-tools \
+#     && apt-get clean \		
+#     && rm -rf /var/lib/apt/lists/*
 
+## copies over the wifi-connect app from the previous (--from=0) stage
 COPY --from=0 /usr/src/app .
 
-RUN yum -v
+## TODO
 
+## copy files needed for the kiosk application
 COPY splash-black.png /resin-boot/splash/resin-logo.png
 COPY udev-rules/ /etc/udev/rules.d/
 COPY php.ini /etc/php/apache2-php7/php.ini
@@ -36,4 +46,16 @@ ENV WPE_URL="http://localhost/index.php"
 
 COPY wpe-init /wpe-init
 
-CMD ["sh", "-c", "bash start.sh"]
+CMD ["sh", "-c", "bash start.sh"] # the call to /wpeinit exists in the file 'start.sh'. This would work if the dnsmasq dependency existed in this stage
+
+## Notes:
+# each 'FROM' directive creates a new stage that exectues directives in the context of the image 'FROM' specifies (csmjulian/resin and resin/%%RESIN_MACHINE_NAME%%-debian in this case)
+# because each stage is isolated, our stage (csmjulian) doesn't have access to the dnsmasq dependency that the wifi-connect stage installs with apt-get. Further, our stage doesn't have a package manager, so we cannot install the dependency in our stage
+# what needs to happen: from this current docker file, lines need to be added in the space marked TODO that installs dnsmasq onto this image. This can happen (as far as I could learn) in only two ways:
+# 1) bake dnsmasq into the image, similarly to how apache2, wpe, etc. are already in it. This would require no change to the TODO line, it shoul just work with this dockerfile as is with maybe small edits to config files (COPY them over as necessary)
+# 2) bake a package manager into the image and install it the same way it is installed in the wifi-connect stage. place the lines of code that would download and install dnsmasq on the TODO line.
+
+# Note: to execute multi-line commands in this file, end the line with a \ as seen on lines 8-11
+# more notes on docker stages and commands:
+#	https://docs.docker.com/develop/develop-images/multistage-build/#use-multi-stage-builds
+#	https://docs.docker.com/engine/reference/builder/
