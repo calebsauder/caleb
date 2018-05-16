@@ -22,7 +22,7 @@ COPY scripts/start.sh .
 
 
 ## our stage
-FROM csmcaleb/resin-wpe:raspberrypi3-f98d261
+FROM csmcaleb/resin-wpe:third
 
 ENV INITSYSTEM on
 
